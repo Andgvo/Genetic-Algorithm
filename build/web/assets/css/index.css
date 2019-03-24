@@ -1,0 +1,139 @@
+html, body{
+    height: 100%;
+}
+body{
+    padding-top: 90px;
+}
+
+.center-auto{
+    margin: auto;   
+}
+
+.footer{
+    clear:both;
+    position: relative;
+    bottom:0;
+    width:100%;
+}
+
+/* animations */
+.animated.delay-1ms {
+  -webkit-animation-delay: 1ms;
+  animation-delay: 1ms;
+}
+.animated.delay-2ms {
+  -webkit-animation-delay: 2ms;
+  animation-delay: 2ms;
+}
+.animated.delay-3ms {
+  -webkit-animation-delay: 3ms;
+  animation-delay: 3ms;
+}
+.animated.delay-4ms {
+  -webkit-animation-delay: 4ms;
+  animation-delay: 4ms;
+}
+.animated.delay-5ms {
+  -webkit-animation-delay: 5ms;
+  animation-delay: 5ms;
+}
+.animated.delay-10ms {
+  -webkit-animation-delay: 20ms;
+  animation-delay: 20ms;
+}
+.animated.delay-20ms {
+  -webkit-animation-delay: 20ms;
+  animation-delay: 20ms;
+}
+.animated.delay-30ms {
+  -webkit-animation-delay: 30ms;
+  animation-delay: 30ms;
+}
+.animated.delay-40ms {
+  -webkit-animation-delay: 40ms;
+  animation-delay: 40ms;
+}
+.animated.delay-50ms {
+  -webkit-animation-delay: 50ms;
+  animation-delay: 50ms;
+}
+.animated.delay-100ms {
+  -webkit-animation-delay: 100ms;
+  animation-delay: 100ms;
+}
+.animated.delay-150ms {
+  -webkit-animation-delay: 150ms;
+  animation-delay: 150ms;
+}
+.animated.delay-200ms {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}
+.animated.delay-300ms {
+  -webkit-animation-delay: 300ms;
+  animation-delay: 300ms;
+}
+.animated.delay-400ms {
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}
+
+.animated.delay-600ms {
+  -webkit-animation-delay: 600ms;
+  animation-delay: 600ms;
+}
+
+/* scrooll theme */
+::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar{
+    width: 7px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar:hover{
+    width: 9px !important;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 3px;
+    background-image: -webkit-gradient(linear,
+        left bottom,
+        left top,
+        color-stop(0.44, rgb(44, 62, 80)),
+        color-stop(0.72, rgb(44, 62, 80)),
+        color-stop(0.86, rgb(44, 62, 80)));
+}
+
+/*
+ *  STYLE 15
+ */
+
+#style-15::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+#style-15::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+#style-15::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear,
+        40% 0%,
+        75% 84%,
+        from(#4D9C41),
+        to(#19911D),
+        color-stop(.6,#54DE5D))
+}
