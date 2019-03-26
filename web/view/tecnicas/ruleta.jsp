@@ -4,7 +4,6 @@
     Author     : Andres
 --%>
 
-<%@page import="com.ipn.mx.geneticos.modelo.dto.Route"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -179,7 +178,7 @@
             function getCromosomas() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/RuletaServlet',
+                    url: 'RuletaServlet',
                     data: {
                         txtAccion: 'getPoblacionAleatoria',
                         txtNumeroPoblacion: $("#txtNumeroPoblacion").val()
@@ -193,7 +192,7 @@
             function getQuicksort() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/RuletaServlet',
+                    url: 'RuletaServlet',
                     data: {
                         txtAccion: 'getQuicksort'
                         //txtPoblacion: JSON.stringify( app.$data.ruleta.poblacion ) //Obtiene el JSON de Cromosomas
@@ -207,7 +206,7 @@
             function setRangos() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/RuletaServlet',
+                    url: 'RuletaServlet',
                     data: {
                         txtAccion: 'setRangos',
                         txtValorInicio: $('#txtValorInicio').val() ,

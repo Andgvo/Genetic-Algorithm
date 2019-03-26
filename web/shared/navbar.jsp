@@ -14,15 +14,15 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=Route.PATH%>/index.jsp">Inicio <span class="pe-7s-home"></span></a>
+                    <a class="nav-link" href="index.jsp">Inicio <span class="pe-7s-home"></span></a>
                 </li>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Ejercicios<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="themes">
-                        <a class="dropdown-item" href="<%=Route.PATH%>/view/ejercicios/quicksort.jsp">Quicksort</a>
-                        <a class="dropdown-item" href="<%=Route.PATH%>/view/ejercicios/grafica.jsp">Gráfica</a>
-                        <a class="dropdown-item" href="<%=Route.PATH%>/view/ejercicios/tiposDatos.jsp">Tipos de Datos</a>
+                        <a class="dropdown-item" href="quicksort">Quicksort</a>
+                        <a class="dropdown-item" href="grafica">Gráfica</a>
+                        <a class="dropdown-item" href="tiposDatos">Tipos de Datos</a>
                         <!--<div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="agregarCarrera.jsp">Agregar carrera</a>-->
                     </div>

@@ -8,5 +8,7 @@ import java.io.File;
  */
 public abstract class Route {
     public static final String PATH = "Genetic-Algorithm"+File.separator;
-    public static final String STATIC = "assets";
+    public static final String STATIC = "assets"+File.separator;
+    public static final String STATIC_CSS = STATIC +File.separator+ "css" +File.separator;
+    public static final String STATIC_JS = STATIC +File.separator+ "js" +File.separator;
 }

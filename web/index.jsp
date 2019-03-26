@@ -27,7 +27,7 @@
                         <div class="card-body">
                           <h4 class="card-title">Quicksort</h4>
                           <p class="card-text">Algoritmo de ordenamiento.</p>
-                          <a href="view/ejercicios/quicksort.jsp" class="btn btn-lg btn-outline-info btn-block">Revisar</a>
+                          <a href="quicksort" class="btn btn-lg btn-outline-info btn-block">Revisar</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <div class="card-body">
                           <h4 class="card-title">Gráfica</h4>
                           <p class="card-text">Datos random y gráfica de los datos.</p>
-                          <a href="view/ejercicios/grafica.jsp" class="btn btn-lg btn-outline-warning btn-block">Revisar</a>
+                          <a href="grafica" class="btn btn-lg btn-outline-warning btn-block">Revisar</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <div class="card-body">
                           <h4 class="card-title">Tipos de datos</h4>
                           <p class="card-text">Enteros, flotante, cadena bits y gray.</p>
-                          <a href="view/ejercicios/tiposDatos.jsp" class="btn btn-lg btn-outline-success btn-block">Revisar</a>
+                          <a href="tiposDatos" class="btn btn-lg btn-outline-success btn-block">Revisar</a>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <div class="card-body">
                           <h4 class="card-title">Ruleta</h4>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="view/tecnicas/ruleta.jsp" class="btn btn-lg btn-outline-info btn-block">Revisar</a>
+                          <a href="ruleta" class="btn btn-lg btn-outline-info btn-block">Revisar</a>
                         </div>
                     </div>
                 </div>

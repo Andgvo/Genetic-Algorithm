@@ -89,7 +89,7 @@
             function getCromosomas() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/CromosomaServlet',
+                    url: 'CromosomaServlet',
                     data: {
                         txtAccion: 'getPoblacionAleatoria',
                         txtNumeroPoblacion: $("#txtNumeroPoblacion").val()
@@ -106,7 +106,7 @@
             function getQuicksort() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/CromosomaServlet',
+                    url: 'CromosomaServlet',
                     data: {
                         txtAccion: 'getQuicksort'
                     },

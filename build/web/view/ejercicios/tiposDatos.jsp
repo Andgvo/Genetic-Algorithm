@@ -183,7 +183,7 @@
             function getCromosomas() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/CromosomaServlet',
+                    url: 'CromosomaServlet',
                     data: {
                         txtAccion: 'getPoblacionAleatoria',
                         txtNumeroPoblacion: $("#txtNumeroPoblacion").val()
@@ -198,7 +198,7 @@
             function getQuicksort() {
                 $.ajax({
                     type: 'GET',
-                    url: '<%=Route.PATH%>/CromosomaServlet',
+                    url: 'CromosomaServlet',
                     data: {
                         txtAccion: 'getQuicksort'
                         //txtPoblacion: JSON.stringify( app.$data.cromosomas ) //Obtiene el JSON de Cromosomas

@@ -68,6 +68,41 @@
         <servlet-name>RuletaServlet</servlet-name>
         <servlet-class>com.ipn.mx.geneticos.servlet.tecnica.RuletaServlet</servlet-class>
     </servlet>
+    <!-- JSP FILES  -->
+    <servlet>
+        <servlet-name>quicksort</servlet-name>
+        <jsp-file>/view/ejercicios/quicksort.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>grafica</servlet-name>
+        <jsp-file>/view/ejercicios/grafica.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>tiposDatos</servlet-name>
+        <jsp-file>/view/ejercicios/tiposDatos.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>ruleta</servlet-name>
+        <jsp-file>/view/tecnicas/ruleta.jsp</jsp-file>
+    </servlet>
+    <!-- JSP MAPPING -->
+    <servlet-mapping>
+        <servlet-name>quicksort</servlet-name>
+        <url-pattern>/quicksort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>grafica</servlet-name>
+        <url-pattern>/grafica</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tiposDatos</servlet-name>
+        <url-pattern>/tiposDatos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ruleta</servlet-name>
+        <url-pattern>/ruleta</url-pattern>
+    </servlet-mapping>
+    <!-- SERVLET MAPPING -->
     <servlet-mapping>
         <servlet-name>AgregarCarrera</servlet-name>
         <url-pattern>/AgregarCarrera</url-pattern>
