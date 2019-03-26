@@ -1,6 +1,7 @@
 
 package com.ipn.mx.geneticos.modelo.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author andres
  */
-public class Cromosoma {
+public class Cromosoma implements Serializable{
     protected BigDecimal valorReal;
     protected BigDecimal valorEntero;
     protected BigDecimal valorGray;

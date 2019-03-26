@@ -11,11 +11,11 @@ import java.util.Random;
  * @author andres
  */
 public class Ruleta {
-    private int n;                                          //tamaño de la población
-    private BigDecimal f;                                   //Promedio de aptitud
-    private Poblacion<IndividuoRuleta> poblacion;           //poblacion
-    private BigDecimal t;                                   //Sumatoria promedio de aptitud
-    private BigDecimal r;                                   //Numero aleatoria entre 0 y t
+    private int n;                                  //tamaño de la población
+    private BigDecimal f;                           //Promedio de aptitud
+    private Poblacion<IndividuoRuleta> poblacion;   //poblacion
+    private BigDecimal t;                           //Sumatoria promedio de aptitud
+    private BigDecimal r;                           //Numero aleatoria entre 0 y t
 
     public Ruleta(int numElementos) {
         this.poblacion = new Poblacion(IndividuoRuleta.class, numElementos );
