@@ -1,5 +1,6 @@
 package com.ipn.mx.geneticos.modelo.dto;
 
+import com.ipn.mx.geneticos.utilerias.Rango;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -10,17 +11,25 @@ import java.util.Random;
 /**
  *
  * @author andres
+ * @param <T extends Cromosoma>
  */
 public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
-    private Class<T> type;
-    protected int n; //tamaño de la población
+    private final Class<T> type;
+    private Rango rango;
+    protected int tamanioPoblacion; //tamaño de la población
     protected BigDecimal sumatoriaF;
-    private static int valorInicio = 1;
-    private static int valorFinal = 10;
+    private static int valorMinimo = 1;
+    private static int valorMaximo = 10;
 
     public Poblacion(Class<T> type) {
         sumatoriaF = new BigDecimal(0);
         this.type = type;
+    }
+    
+    public Poblacion(Class<T> type, Rango rango){
+        sumatoriaF = new BigDecimal(0);
+        this.type = type;
+        this.rango = rango;
     }
 
     public Poblacion(Class<T> type, List<T> cromosomas) {
@@ -35,6 +44,26 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
         getPoblacionAleatoria(numElement);
     }
     
+    public Poblacion(Class<T> type, int numElement, Rango rango) {
+        sumatoriaF = new BigDecimal(0);
+        this.type = type;
+        getPoblacionAleatoria(numElement, rango);
+    }
+    
+    public void generarPoblacion(){
+        this.clear();
+        T individuo;
+        for (int i = 0; i < tamanioPoblacion ; i++) {
+            individuo = 
+                instantiateFromType(
+                    new BigDecimal(
+                            new Random().nextInt(rango.getValorMaximo() ) + rango.getValorMinimo() ) );
+            this.add(individuo);
+            sumatoriaF = sumatoriaF.add(individuo.getAptitud());
+        }
+    }
+    
+    /*****/
     public static Poblacion getAleatoria(int numElementos) {
         Poblacion resultado = new Poblacion(Cromosoma.class);
         Cromosoma individuo;
@@ -47,11 +76,24 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
         return resultado;
     }
     
+    private void getPoblacionAleatoria(int numElementos, Rango rango) {
+        this.clear();
+        T individuo;
+        for (int i = 0; i < numElementos; i++) {
+            individuo = 
+                instantiateFromType(
+                    new BigDecimal(
+                            new Random().nextInt(rango.getValorMaximo() ) + rango.getValorMinimo() ) );
+            this.add(individuo);
+            sumatoriaF = sumatoriaF.add(individuo.getAptitud());
+        }
+    }
+    
     protected void getPoblacionAleatoria(int numElementos) {
         this.clear();
         T individuo;
         for (int i = 0; i < numElementos; i++) {
-            individuo = instantiateFromType( new BigDecimal(new Random().nextInt( valorFinal ) + valorInicio ) );
+            individuo = instantiateFromType(new BigDecimal(new Random().nextInt(valorMaximo ) + valorMinimo ) );
             this.add(individuo);
             sumatoriaF = sumatoriaF.add(individuo.getAptitud());
         }
@@ -77,15 +119,13 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     }
     
     public void setRangos(int valorInicio, int valorFinal) {
-        Poblacion.valorInicio = valorInicio;
-        Poblacion.valorFinal = valorFinal;
+        Poblacion.valorMinimo = valorInicio;
+        Poblacion.valorMaximo = valorFinal;
     }
     
     @Override
     public boolean add(Cromosoma cromosoma) {
         return super.add(cromosoma);
     }
-
-    
 
 }

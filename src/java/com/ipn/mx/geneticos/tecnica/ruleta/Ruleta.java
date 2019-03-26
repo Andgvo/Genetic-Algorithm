@@ -29,6 +29,20 @@ public class Ruleta {
         r = aux.divide( new BigDecimal(10) , 2, RoundingMode.HALF_UP );
     }
     
+    public Ruleta(){
+        
+    }
+    
+    
+    /**
+     * Obtener padres de Poblacion 
+     */
+    public void getPadres(){
+        // r -> [0, t] se multiplica y divide para obtener 2 decimales.  
+        BigDecimal aux = new BigDecimal( new Random().nextInt(t.intValue()*10) );
+        r = aux.divide( new BigDecimal(10) , 2, RoundingMode.HALF_UP );
+    }
+    
     /**
      * Metodo para evaluar la funcion de aptitud
      * @param x valor de 'x' en la funcion f(x)

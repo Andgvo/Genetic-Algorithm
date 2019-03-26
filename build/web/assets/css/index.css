@@ -4,7 +4,9 @@ html, body{
 body{
     padding-top: 90px;
 }
-
+.table-xs td{
+    padding: 0px 0px !important;
+}
 .center-auto{
     margin: auto;   
 }

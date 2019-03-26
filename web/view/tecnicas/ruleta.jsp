@@ -36,11 +36,11 @@
                                     <input type="number" class="form-control" id="txtNumeroPoblacion" name="txtNumeroPoblacion" aria-describedby="emailHelp" value="10" placeholder="10">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="txtNumeroPoblacion">Número de inicio:</label>
+                                    <label for="txtNumeroPoblacion">Valor mínimo del Random:</label>
                                     <input type="number" class="form-control" id="txtValorInicio" name="txtValorInicio" aria-describedby="emailHelp" value="1" placeholder="10">
                                 </div>
                                 <div class="form-group col-4">
-                                    <label for="txtNumeroPoblacion">Número final:</label>
+                                    <label for="txtNumeroPoblacion">Valor máximo del Random:</label>
                                     <input type="number" class="form-control" id="txtValorFinal" name="txtValorFinal" aria-describedby="emailHelp" value="10" placeholder="10">
                                 </div>
                                 <div class="form-group col-12">
@@ -60,28 +60,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--
-                                <div class="col-12 form-inline">
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <label for="txtNumeroPoblacion">Número de cromosomas</label>
-                                    </div>
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <input type="number" class="form-control" id="txtNumeroPoblacion" name="txtNumeroPoblacion" aria-describedby="emailHelp" value="10" placeholder="10">
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <button id="btnGetAleatorios" class="btn btn-success" > Generar aleatorio </button>
-                                    </div>
-                                    <div class="form-group mb-2 ml-auto">
-                                        <button id="btnQuicksort" class="btn btn-info" > Quicksort </button>
-                                    </div>
-                                </div>
-                            -->
                         </div>
                         <div class="row">
                             <br class="m-t-4">
                             <div class="col-12">
                                 <div class="table" id="tablaAleatorio" name="tablaCategoria">
-                                    <table class='table table-sm table-hover'>
+                                    <table class='table table-xs table-hover'>
                                         <thead class=''>
                                             <tr class='table-info'>
                                                 <th scope='col'> Num </th>

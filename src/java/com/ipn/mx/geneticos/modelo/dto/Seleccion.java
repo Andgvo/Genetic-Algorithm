@@ -5,6 +5,6 @@ package com.ipn.mx.geneticos.modelo.dto;
  *
  * @author Andres
  */
-public class Seleccion {
-    
+public interface Seleccion {
+    public Poblacion execute(Poblacion padres);
 }
