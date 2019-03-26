@@ -15,17 +15,13 @@ import java.util.List;
 public class Cromosoma implements Serializable{
     protected BigDecimal valorReal;
     protected BigDecimal valorEntero;
-    protected BigDecimal valorGray;
     protected List<Byte> cadenaBinaria;
-    protected List<Byte> cadenaGray;
     protected BigDecimal aptitud;
     
     public Cromosoma(BigDecimal valorDecimal) {
         this.valorReal = valorDecimal;
         valorEntero = new BigDecimal(valorReal.intValue());
         cadenaBinaria = parseByte();
-        valorGray = new BigDecimal(parseGray());
-        cadenaGray = parseByte( valorGray.intValue() );
         aptitud = new BigDecimal(BigInteger.ZERO);
     }
     
@@ -48,17 +44,7 @@ public class Cromosoma implements Serializable{
         return cadena;
     }
     
-    public static int parseGray(BigDecimal valorDecimal){
-        int original = valorDecimal.intValue();
-        int corrimiento = valorDecimal.intValue()>>1;
-        return original^corrimiento;
-    }
     
-    protected final int parseGray(){
-        int original = valorReal.intValue();
-        int corrimiento = valorReal.intValue()>>1;
-        return original^corrimiento;
-    }
     
     // GETTERS AND SETTERS 
     public BigDecimal getValorReal() {
@@ -93,22 +79,6 @@ public class Cromosoma implements Serializable{
 
     public void setValorEntero(BigDecimal valorEntero) {
         this.valorEntero = valorEntero;
-    }
-
-    public BigDecimal getValorGray() {
-        return valorGray;
-    }
-
-    public void setValorGray(BigDecimal valorGray) {
-        this.valorGray = valorGray;
-    }
-
-    public List<Byte> getCadenaGray() {
-        return cadenaGray;
-    }
-
-    public void setCadenaGray(List<Byte> cadenaGray) {
-        this.cadenaGray = cadenaGray;
     }
     
 }

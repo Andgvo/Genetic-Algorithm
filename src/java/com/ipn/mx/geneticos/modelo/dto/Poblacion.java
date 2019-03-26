@@ -63,7 +63,10 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
         }
     }
     
-    /*****/
+    /**
+     * @param numElementos numero de elementos de la poblacion
+     * @return Poblacion 
+    **/
     public static Poblacion getAleatoria(int numElementos) {
         Poblacion resultado = new Poblacion(Cromosoma.class);
         Cromosoma individuo;
