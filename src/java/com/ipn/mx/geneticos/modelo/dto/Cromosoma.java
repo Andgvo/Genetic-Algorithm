@@ -34,6 +34,17 @@ public class Cromosoma implements Serializable{
         return cadena;
     }
     
+    public static double parseDouble( String valor ){
+        double result=0;
+        int base = 0;
+        for(int i = valor.length(); i != 0; i--){
+            byte r = Byte.parseByte(valor.charAt(i-1)+"");
+            result+= (r<<base);
+            base++;
+        }
+        return result;
+    }
+    
     protected final List<Byte> parseByte(){
         int valor = valorReal.intValue();
         List<Byte> cadena = new ArrayList<>();

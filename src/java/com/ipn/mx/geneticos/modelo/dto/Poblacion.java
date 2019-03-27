@@ -16,44 +16,43 @@ import java.util.Random;
 public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     private final Class<T> type;
     private Rango rango;
-    protected int tamanioPoblacion; //tamaño de la población
+    protected BigDecimal numeroIndividuos; //tamaño de la población
     protected BigDecimal sumatoriaF;
     private static int valorMinimo = 1;
     private static int valorMaximo = 10;
-
+    
+    //Tambien se usa en quicksort :'v
     public Poblacion(Class<T> type) {
         sumatoriaF = new BigDecimal(0);
         this.type = type;
     }
     
-    public Poblacion(Class<T> type, Rango rango){
+    // PARA UN FUTURO. SE PUEDE ELIMINAR
+    public Poblacion(Class<T> type, BigDecimal numIndividuos, Rango rango){
         sumatoriaF = new BigDecimal(0);
         this.type = type;
+        this.numeroIndividuos = numIndividuos;
         this.rango = rango;
     }
-
+    
+    //Se usa en Quicksort
     public Poblacion(Class<T> type, List<T> cromosomas) {
         sumatoriaF = new BigDecimal(0);
         this.type = type;
         addAll(cromosomas);
     }
     
+    //Se usa en Ruleta viejita, se puede eliminar
     public Poblacion(Class<T> type, int numElement) {
         sumatoriaF = new BigDecimal(0);
         this.type = type;
         getPoblacionAleatoria(numElement);
     }
-    
-    public Poblacion(Class<T> type, int numElement, Rango rango) {
-        sumatoriaF = new BigDecimal(0);
-        this.type = type;
-        getPoblacionAleatoria(numElement, rango);
-    }
-    
+        
     public void generarPoblacion(){
         this.clear();
         T individuo;
-        for (int i = 0; i < tamanioPoblacion ; i++) {
+        for (int i = 0; i < numeroIndividuos.intValue() ; i++) {
             individuo = 
                 instantiateFromType(
                     new BigDecimal(
@@ -77,6 +76,22 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
             resultado.add(individuo);
         }
         return resultado;
+    }
+    
+    /**
+     * Clase para convetir un String de forma "cromosoma, cromosoma, cromosoma" a
+     * una poblacion de cromosomas de cierta clase.
+     * @param elementos
+     * @param type
+     * @return 
+     */
+    public static Poblacion parseToCromosoma(String elementos, Class type){
+        String[] valores = elementos.split(",");
+        Poblacion p = new Poblacion(type);
+        for (String valor : valores) {
+            p.add( new Cromosoma( new BigDecimal( Cromosoma.parseDouble(valor) ) ));
+        }
+        return p;
     }
     
     private void getPoblacionAleatoria(int numElementos, Rango rango) {
@@ -130,5 +145,5 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     public boolean add(Cromosoma cromosoma) {
         return super.add(cromosoma);
     }
-
+    
 }

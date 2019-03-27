@@ -22,7 +22,7 @@
                     <hr>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                    <div class="card border-info mb-3" style="max-width: 20rem;">
+                    <div class="card card-hover border-info mb-3" style="max-width: 20rem;">
                         <div class="card-header"> </div>
                         <div class="card-body">
                           <h4 class="card-title">Quicksort</h4>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 ">
-                    <div class="card border-warning mb-3" style="max-width: 20rem;">
+                    <div class="card card-hover border-warning mb-3" style="max-width: 20rem;">
                         <div class="card-header"></div>
                         <div class="card-body">
                           <h4 class="card-title">Gráfica</h4>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                    <div class="card border-success mb-3" style="max-width: 20rem;">
+                    <div class="card card-hover border-success mb-3" style="max-width: 20rem;">
                         <div class="card-header"></div>
                         <div class="card-body">
                           <h4 class="card-title">Tipos de datos</h4>
@@ -58,7 +58,7 @@
                     <hr>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                    <div class="card border-info mb-3" style="max-width: 20rem;">
+                    <div class="card card-hover border-info mb-3" style="max-width: 20rem;">
                         <div class="card-header"> </div>
                         <div class="card-body">
                           <h4 class="card-title">Ruleta</h4>

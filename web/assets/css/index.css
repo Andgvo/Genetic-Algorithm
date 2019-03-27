@@ -19,6 +19,18 @@ body{
 }
 
 /* animations */
+.card-hover:hover{
+    /*margin-top: -4px;*/
+    box-shadow: 0 6px 6px rgba(0,0,0,.16), 0 6px 6px rgba(0,0,0,.23);
+    -webkit-transform: translate3d(0, -7px, 0);
+    transform: translate3d(0, -7px, 0);
+    border-bottom: 0;
+}
+
+.card-no-padding{
+    padding: 0px 0px 0rem 1.25rem !important;
+}
+
 .animated.delay-1ms {
   -webkit-animation-delay: 1ms;
   animation-delay: 1ms;
