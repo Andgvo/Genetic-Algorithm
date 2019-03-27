@@ -69,7 +69,7 @@ public class Metodo<T extends Cromosoma> {
         Rango rango = new Rango(1, 10);
         Funcion f2 = new FuncCuadrado();
         Seleccion ruleta = new Ruleta();
-        Mutacion simple = new MutacionSimple();
+        Mutacion simple = new MutacionSimple(Cromosoma.class);
         Poblacion padres = Poblacion.parseToCromosoma("01101,11000,01000,10011,10111,01111", Cromosoma.class);
         System.out.println(padres.imprimirPoblacion());
         Metodo<Cromosoma> ruletaBits = 

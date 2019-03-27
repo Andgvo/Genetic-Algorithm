@@ -4,16 +4,23 @@ package com.ipn.mx.geneticos.modelo.dto;
  *
  * @author andres
  */
-public class MutacionSimple implements Mutacion{
+public class MutacionSimple extends ParseCromosoma implements Mutacion{
 
-    @Override
-    public Cromosoma mutar() {
-        return null;
+    public MutacionSimple(Class type) {
+        super(type);
     }
 
     @Override
-    public Poblacion mutarPoblacion(Poblacion poblacion) {
-        return null;
+    public Cromosoma mutar(Cromosoma cromosoma) {
+        return cromosoma;
+    }
+
+    @Override
+    public Poblacion mutarPoblacion(Poblacion<Cromosoma> poblacion) {
+        poblacion.forEach((cromosoma) -> {
+            mutar(cromosoma);
+        });
+        return poblacion;
     }
     
 }
