@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ipn.mx.geneticos.servlet.tecnica;
 
 import com.google.gson.Gson;
@@ -10,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.ipn.mx.geneticos.modelo.dao.RuletaDAO;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import com.ipn.mx.geneticos.tecnica.ruleta.IndividuoRuleta;
+import com.ipn.mx.geneticos.utilerias.Rango;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -26,6 +22,7 @@ public class RuletaServlet extends HttpServlet {
     private final RuletaDAO dao = new RuletaDAO();
     private final Gson gson = new GsonBuilder().create();
     private Poblacion<IndividuoRuleta> lista;
+    private Rango rango;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -98,7 +95,8 @@ public class RuletaServlet extends HttpServlet {
 
     private void getPoblacionAleatoria(HttpServletRequest request, PrintWriter out) {
         int num = Integer.parseInt(request.getParameter("txtNumeroPoblacion"));
-        dao.setRuleta(num);
+        
+        //dao.setRuleta(num);
         lista = dao.getPoblacionAleaotria();
         out.println(gson.toJson(dao.getRuleta()));
     }
@@ -111,6 +109,6 @@ public class RuletaServlet extends HttpServlet {
     private void setRangos(HttpServletRequest request, PrintWriter out) {
         int valorInicio = Integer.parseInt(request.getParameter("txtValorInicio"));
         int valorFinal = Integer.parseInt(request.getParameter("txtValorFinal"));
-        dao.setRango(valorInicio, valorFinal);
+        //dao.setRango(valorInicio, valorFinal);
     }
 }

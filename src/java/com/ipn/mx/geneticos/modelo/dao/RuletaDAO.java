@@ -3,6 +3,9 @@ package com.ipn.mx.geneticos.modelo.dao;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import com.ipn.mx.geneticos.tecnica.ruleta.Ruleta;
 import com.ipn.mx.geneticos.utilerias.QuicksortC;
+import com.ipn.mx.geneticos.utilerias.Rango;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  *
@@ -10,21 +13,21 @@ import com.ipn.mx.geneticos.utilerias.QuicksortC;
  */
 public class RuletaDAO {
     private Ruleta ruleta;
+    private Rango rango;
+    private BigDecimal numeroIndividuos;
     
     public RuletaDAO(){
-        ruleta = new Ruleta(10);
+        rango = new Rango(1,10);
+        numeroIndividuos = new BigDecimal(10);
+        ruleta = new Ruleta(numeroIndividuos,rango);
     }
     
     public Ruleta getRuleta(){
         return ruleta;
     }
     
-    public void setRuleta(int numElement){
-        ruleta = new Ruleta(numElement);
-    }
-    
-    public void setRango(int valorInicio, int valorFinal){
-        ruleta.getPoblacion().setRangos(valorInicio, valorFinal);
+    public void setRuleta(BigDecimal numeroIndividuos, Rango rango){
+        ruleta = new Ruleta(numeroIndividuos, rango);
     }
     
     public Poblacion getPoblacionAleaotria(){

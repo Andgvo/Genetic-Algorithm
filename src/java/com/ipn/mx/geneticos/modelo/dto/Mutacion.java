@@ -6,4 +6,5 @@ package com.ipn.mx.geneticos.modelo.dto;
  */
 public interface Mutacion {
     public Cromosoma mutar();
+    public Poblacion mutarPoblacion(Poblacion poblacion);
 }

@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class Cromosoma implements Serializable{
     protected BigDecimal valorReal;
-    protected BigDecimal valorEntero;
     protected List<Byte> cadenaBinaria;
     protected BigDecimal aptitud;
+    protected BigDecimal valorEsperado;
     
     public Cromosoma(BigDecimal valorDecimal) {
         this.valorReal = valorDecimal;
-        valorEntero = new BigDecimal(valorReal.intValue());
         cadenaBinaria = parseByte();
         aptitud = new BigDecimal(BigInteger.ZERO);
+        valorEsperado = new BigDecimal(BigInteger.ZERO);
     }
     
     public static List<Byte> parseByte( int valor ){
@@ -83,13 +83,22 @@ public class Cromosoma implements Serializable{
     public void setAptitud(BigDecimal aptitud) {
         this.aptitud = aptitud;
     }
-
-    public BigDecimal getValorEntero() {
-        return valorEntero;
-    }
-
-    public void setValorEntero(BigDecimal valorEntero) {
-        this.valorEntero = valorEntero;
+    
+    public BigDecimal getValorEsperado() {
+        return valorEsperado;
     }
     
+    public void setValorEsperado(BigDecimal valorEsperado){
+        this.valorEsperado = valorEsperado;
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("valorReal= ").append(valorReal)
+        .append("\tcadenaBinaria= ").append(cadenaBinaria)
+        .append("\taptitud= ").append(aptitud)
+        .append("\tvalorEsperado= ").append(valorEsperado);
+        return sb.toString();
+    }
 }

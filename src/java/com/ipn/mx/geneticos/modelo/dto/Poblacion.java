@@ -1,9 +1,11 @@
 package com.ipn.mx.geneticos.modelo.dto;
 
+import com.ipn.mx.geneticos.utilerias.Funcion;
 import com.ipn.mx.geneticos.utilerias.Rango;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,49 +19,32 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     private final Class<T> type;
     private Rango rango;
     protected BigDecimal numeroIndividuos; //tamaño de la población
-    protected BigDecimal sumatoriaF;
-    private static int valorMinimo = 1;
-    private static int valorMaximo = 10;
+    protected BigDecimal sumatoriaAptitud;
+    protected BigDecimal promedioAptitud;
+    protected BigDecimal sumatoriaVe;
+    protected BigDecimal promedioVe;
     
     //Tambien se usa en quicksort :'v
     public Poblacion(Class<T> type) {
-        sumatoriaF = new BigDecimal(0);
+        sumatoriaAptitud = new BigDecimal(0);
         this.type = type;
     }
     
     // PARA UN FUTURO. SE PUEDE ELIMINAR
     public Poblacion(Class<T> type, BigDecimal numIndividuos, Rango rango){
-        sumatoriaF = new BigDecimal(0);
+        sumatoriaAptitud = new BigDecimal(0);
         this.type = type;
         this.numeroIndividuos = numIndividuos;
         this.rango = rango;
+        this.sumatoriaVe = new  BigDecimal(0);
+        this.promedioVe = new BigDecimal(0);
     }
     
     //Se usa en Quicksort
     public Poblacion(Class<T> type, List<T> cromosomas) {
-        sumatoriaF = new BigDecimal(0);
+        sumatoriaAptitud = new BigDecimal(0);
         this.type = type;
         addAll(cromosomas);
-    }
-    
-    //Se usa en Ruleta viejita, se puede eliminar
-    public Poblacion(Class<T> type, int numElement) {
-        sumatoriaF = new BigDecimal(0);
-        this.type = type;
-        getPoblacionAleatoria(numElement);
-    }
-        
-    public void generarPoblacion(){
-        this.clear();
-        T individuo;
-        for (int i = 0; i < numeroIndividuos.intValue() ; i++) {
-            individuo = 
-                instantiateFromType(
-                    new BigDecimal(
-                            new Random().nextInt(rango.getValorMaximo() ) + rango.getValorMinimo() ) );
-            this.add(individuo);
-            sumatoriaF = sumatoriaF.add(individuo.getAptitud());
-        }
     }
     
     /**
@@ -94,27 +79,50 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
         return p;
     }
     
-    private void getPoblacionAleatoria(int numElementos, Rango rango) {
+    /**
+     * Se generan la población de manera aleatoria en un Rango definido previamente
+     * a la par se va calculando la sumatoria de aptitud y finalmente el promedio
+     * de ésta.
+     * @param funcion
+     */
+    public void generarPoblacion(Funcion funcion){
         this.clear();
         T individuo;
-        for (int i = 0; i < numElementos; i++) {
+        for (int i = 0; i < numeroIndividuos.intValue() ; i++) {
+            //Se crea un individuo con un valor dentro de un Rango
             individuo = 
                 instantiateFromType(
                     new BigDecimal(
                             new Random().nextInt(rango.getValorMaximo() ) + rango.getValorMinimo() ) );
+            individuo.setAptitud( funcion.f( individuo.getValorReal() ) );
             this.add(individuo);
-            sumatoriaF = sumatoriaF.add(individuo.getAptitud());
+            sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
         }
+        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos);
     }
     
-    protected void getPoblacionAleatoria(int numElementos) {
-        this.clear();
-        T individuo;
-        for (int i = 0; i < numElementos; i++) {
-            individuo = instantiateFromType(new BigDecimal(new Random().nextInt(valorMaximo ) + valorMinimo ) );
-            this.add(individuo);
-            sumatoriaF = sumatoriaF.add(individuo.getAptitud());
+    /**
+     * Se generan la población de manera aleatoria en un Rango definido previamente
+     * a la par se va calculando la sumatoria de aptitud y finalmente el promedio
+     * de ésta.
+     * @param funcion
+     */
+    public void evaluarPoblacion( Funcion funcion ){
+        for (Cromosoma individuo: this) {
+            individuo.setAptitud( funcion.f( individuo.getValorReal() ) );
+            sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
         }
+        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos);
+    }
+    
+    public void setValoresEsperados(){
+        this.stream().forEachOrdered((individuo) -> {
+            individuo.setValorEsperado( 
+                individuo.getAptitud().divide( 
+                    promedioAptitud, 2, RoundingMode.HALF_UP ) );
+            sumatoriaVe = sumatoriaVe.add(individuo.getValorEsperado());
+        });
+        promedioVe = sumatoriaVe.divide(numeroIndividuos);
     }
     
     private T instantiateFromType( BigDecimal valor ) {
@@ -132,18 +140,31 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
         return size();
     }
     
-    public BigDecimal getSumatoriaF(){
-       return sumatoriaF; 
+    public BigDecimal getSumatoriaAptitud(){
+       return sumatoriaAptitud; 
     }
     
-    public void setRangos(int valorInicio, int valorFinal) {
-        Poblacion.valorMinimo = valorInicio;
-        Poblacion.valorMaximo = valorFinal;
+    public String imprimirPoblacion(){
+        StringBuilder sb = new StringBuilder();
+        this.forEach((t) -> {
+            sb.append(t).append("\n");
+        });
+        return sb.toString();
     }
     
     @Override
     public boolean add(Cromosoma cromosoma) {
         return super.add(cromosoma);
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("SumatoriaAptitud= ").append(sumatoriaAptitud)
+        .append(" PromedioAptitud= ").append(promedioAptitud)
+        .append(" SumatoriaVe= ").append(sumatoriaVe)
+        .append(" PromedioVe= ").append(promedioVe);
+        return sb.toString();
     }
     
 }

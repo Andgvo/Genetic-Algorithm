@@ -1,6 +1,7 @@
 package com.ipn.mx.geneticos.tecnica.ruleta;
 
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
+import com.ipn.mx.geneticos.utilerias.Rango;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -11,28 +12,23 @@ import java.util.Random;
  * @author andres
  */
 public class Ruleta {
-    private int n;                                  //tamaño de la población
+    private BigDecimal numeroIndividuos;                                  //tamaño de la población
     private BigDecimal f;                           //Promedio de aptitud
     private Poblacion<IndividuoRuleta> poblacion;   //poblacion
     private BigDecimal t;                           //Sumatoria promedio de aptitud
     private BigDecimal r;                           //Numero aleatoria entre 0 y t
 
-    public Ruleta(int numElementos) {
-        this.poblacion = new Poblacion(IndividuoRuleta.class, numElementos );
-        n = poblacion.size();
+    public Ruleta(BigDecimal numeroIndividuos, Rango rango) {
+        this.poblacion = new Poblacion(IndividuoRuleta.class, numeroIndividuos, rango );
+        this.numeroIndividuos = numeroIndividuos;
         t = new BigDecimal(BigInteger.ZERO);
         f = 
-            poblacion.getSumatoriaF().
-                divide(new BigDecimal(n), 2, RoundingMode.HALF_UP);
+            poblacion.getSumatoriaAptitud().
+                divide(numeroIndividuos, 2, RoundingMode.HALF_UP);
         setValoresEsperados();
         BigDecimal aux = new BigDecimal( new Random().nextInt(t.intValue()*10) );
         r = aux.divide( new BigDecimal(10) , 2, RoundingMode.HALF_UP );
     }
-    
-    public Ruleta(){
-        
-    }
-    
     
     /**
      * Obtener padres de Poblacion 
@@ -64,19 +60,19 @@ public class Ruleta {
     public void getTabla() {
         poblacion.forEach((o) -> System.out.println(o));
         System.out.println("N: "+poblacion.getN());
-        System.out.println("sum: "+poblacion.getSumatoriaF());
+        System.out.println("sum: "+poblacion.getSumatoriaAptitud());
         System.out.println("f: "+f);
         System.out.println("T: "+t);
         char epsilon = 8712;
         System.out.println("r "+epsilon+" [ 0.0 : "+ r +" ]");
     }
 
-    public int getN() {
-        return n;
+    public BigDecimal getNumeroIndividuos() {
+        return numeroIndividuos;
     }
 
-    public void setN(int n) {
-        this.n = n;
+    public void setNumeroIndividuos(BigDecimal numeroIndividuos) {
+        this.numeroIndividuos = numeroIndividuos;
     }
 
     public BigDecimal getF() {
@@ -110,9 +106,5 @@ public class Ruleta {
     public void setR(BigDecimal r) {
         this.r = r;
     }
-    
-    public static void main(String[] args) {
-        Ruleta ruleta = new Ruleta(7);
-        ruleta.getTabla();
-    }    
+      
 }
