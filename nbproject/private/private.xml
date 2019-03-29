@@ -3,9 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/src/java/com/ipn/mx/geneticos/modelo/dto/Cromosoma.java</file>
-            <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/web/view/tecnicas/ruleta.jsp</file>
-            <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/web/WEB-INF/web.xml</file>
+            <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/src/java/com/ipn/mx/geneticos/modelo/dto/Seleccion.java</file>
             <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/src/java/com/ipn/mx/geneticos/modelo/dto/Ruleta.java</file>
             <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/src/java/com/ipn/mx/geneticos/modelo/dto/Poblacion.java</file>
             <file>file:/home/andres/Documentos/8.%20Algoritmos%20Geneticos/Genetic-Algorithm/src/java/com/ipn/mx/geneticos/tecnica/ruleta/Ruleta.java</file>

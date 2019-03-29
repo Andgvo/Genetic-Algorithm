@@ -5,6 +5,6 @@ package com.ipn.mx.geneticos.modelo.dto;
  *
  * @author Andres
  */
-public interface Seleccion {
-    public Poblacion execute(Poblacion padres);
+public interface Seleccion<T extends Cromosoma> {
+    public Poblacion execute(Poblacion<T> padres);
 }

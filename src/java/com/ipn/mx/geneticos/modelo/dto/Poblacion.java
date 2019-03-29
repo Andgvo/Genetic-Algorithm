@@ -67,12 +67,14 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
      * Clase para convetir un String de forma "cromosoma, cromosoma, cromosoma" a
      * una poblacion de cromosomas de cierta clase.
      * @param elementos
+     * @param numeroIndividuos
+     * @param rango
      * @param type
      * @return 
      */
-    public static Poblacion parseToCromosoma(String elementos, Class type){
+    public static Poblacion parseToCromosoma(String elementos, BigDecimal numeroIndividuos, Rango rango, Class type){
         String[] valores = elementos.split(",");
-        Poblacion p = new Poblacion(type);
+        Poblacion p = new Poblacion(type, numeroIndividuos, rango);
         for (String valor : valores) {
             p.add( new Cromosoma( new BigDecimal( Cromosoma.parseDouble(valor) ) ));
         }
@@ -112,7 +114,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
             individuo.setAptitud( funcion.f( individuo.getValorReal() ) );
             sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
         }
-        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos);
+        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
     
     public void setValoresEsperados(){
@@ -122,7 +124,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
                     promedioAptitud, 2, RoundingMode.HALF_UP ) );
             sumatoriaVe = sumatoriaVe.add(individuo.getValorEsperado());
         });
-        promedioVe = sumatoriaVe.divide(numeroIndividuos);
+        promedioVe = sumatoriaVe.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
     
     private T instantiateFromType( BigDecimal valor ) {
@@ -142,6 +144,10 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     
     public BigDecimal getSumatoriaAptitud(){
        return sumatoriaAptitud; 
+    }
+
+    public BigDecimal getSumatoriaVe() {
+        return sumatoriaVe;
     }
     
     public String imprimirPoblacion(){
