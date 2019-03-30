@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author andres
  */
-public class Ruleta extends ParseCromosoma<Cromosoma> implements Seleccion{
+public class Ruleta<T extends Cromosoma> extends ParseCromosoma<Cromosoma> implements Seleccion{
 
     public Ruleta(Class<Cromosoma> type) {
         super(type);
@@ -18,19 +18,27 @@ public class Ruleta extends ParseCromosoma<Cromosoma> implements Seleccion{
     @Override
     public Poblacion execute(Poblacion padres) {
         //Se multiplica por 100 para posteriormente obtener decimales
-        int promedioVe = padres.getSumatoriaVe().intValue() * 100;
+        int sumatoriaVe = padres.getSumatoriaVe().intValue() * 100;
         BigDecimal cien = new BigDecimal(100);
         BigDecimal numeroRandom;
         BigDecimal r;
-        int i = 0;
-        System.out.println("promedioVe = "+promedioVe);
-        for(Object individuo: padres){
-            numeroRandom = new BigDecimal( new Random().nextInt( promedioVe) );
+        Poblacion<T> nuevosPadres = new Poblacion(type);
+        for(int i = 0; i < padres.size() ; i++){
+            numeroRandom = new BigDecimal( new Random().nextInt( sumatoriaVe) );
             r = numeroRandom.divide( cien , 2, RoundingMode.HALF_UP );
-            System.out.println("num"+i+": "+r);
-            i++;
+            Cromosoma c = seleccion(padres, r);
+            nuevosPadres.add(c);
         }
-        return null;
+        return nuevosPadres;
     }
     
+    private T seleccion(Poblacion poblacion, BigDecimal r){
+        T individuo = null;
+        for(Object cromosoma: poblacion){
+            individuo = (T) cromosoma;
+            if(individuo.getProbabilidadAcumulada().doubleValue() >  r.doubleValue() )
+                return (T) instanciaDeCromosoma(individuo.getValorReal());
+        }
+        return individuo;
+    }
 }

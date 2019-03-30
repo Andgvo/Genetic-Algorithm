@@ -13,16 +13,21 @@ import java.util.List;
  * @author andres
  */
 public class Cromosoma implements Serializable{
+    
+    public static int longitud = 0;
     protected BigDecimal valorReal;
     protected List<Byte> cadenaBinaria;
     protected BigDecimal aptitud;
     protected BigDecimal valorEsperado;
+    protected BigDecimal probabilidadAcumulada;
+    
     
     public Cromosoma(BigDecimal valorDecimal) {
         this.valorReal = valorDecimal;
         cadenaBinaria = parseByte();
         aptitud = new BigDecimal(BigInteger.ZERO);
         valorEsperado = new BigDecimal(BigInteger.ZERO);
+        probabilidadAcumulada = new BigDecimal(BigInteger.ZERO);
     }
     
     public static List<Byte> parseByte( int valor ){
@@ -52,10 +57,11 @@ public class Cromosoma implements Serializable{
             cadena.add( (byte) (valor%2) );
             valor/=2;
         }
+        while(cadena.size() < longitud){
+            cadena.add((byte)0);
+        }
         return cadena;
     }
-    
-    
     
     // GETTERS AND SETTERS 
     public BigDecimal getValorReal() {
@@ -91,6 +97,15 @@ public class Cromosoma implements Serializable{
     public void setValorEsperado(BigDecimal valorEsperado){
         this.valorEsperado = valorEsperado;
     }
+
+    public BigDecimal getProbabilidadAcumulada() {
+        return probabilidadAcumulada;
+    }
+
+    public void setProbabilidadAcumulada(BigDecimal probabilidadAcumulada) {
+        this.probabilidadAcumulada = probabilidadAcumulada;
+    }
+    
     
     @Override
     public String toString(){
@@ -98,7 +113,8 @@ public class Cromosoma implements Serializable{
         sb.append("valorReal= ").append(valorReal)
         .append("\tcadenaBinaria= ").append(cadenaBinaria)
         .append("\taptitud= ").append(aptitud)
-        .append("\tvalorEsperado= ").append(valorEsperado);
+        .append("\tVe= ").append(valorEsperado)
+        .append("\tProb. Acum.= ").append(probabilidadAcumulada);
         return sb.toString();
     }
 }

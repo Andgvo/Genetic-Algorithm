@@ -16,7 +16,7 @@ public abstract class ParseCromosoma<T> {
         this.type = type;
     }
     
-    private T instanciaDeCromosoma( BigDecimal valor ) {
+    protected T instanciaDeCromosoma( BigDecimal valor ) {
       try {
           Constructor constructor = type.getConstructor(BigDecimal.class);
           T interfaceType = (T) constructor.newInstance( valor );

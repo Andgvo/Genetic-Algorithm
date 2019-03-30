@@ -26,7 +26,11 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     
     //Tambien se usa en quicksort :'v
     public Poblacion(Class<T> type) {
+        numeroIndividuos = new BigDecimal(0);
         sumatoriaAptitud = new BigDecimal(0);
+        promedioAptitud = new BigDecimal(0);
+        sumatoriaVe = new BigDecimal(0);
+        promedioVe = new BigDecimal(0);
         this.type = type;
     }
     
@@ -72,9 +76,9 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
      * @param type
      * @return 
      */
-    public static Poblacion parseToCromosoma(String elementos, BigDecimal numeroIndividuos, Rango rango, Class type){
+    public static Poblacion parseToCromosoma(String elementos, Class type){
         String[] valores = elementos.split(",");
-        Poblacion p = new Poblacion(type, numeroIndividuos, rango);
+        Poblacion p = new Poblacion(type);
         for (String valor : valores) {
             p.add( new Cromosoma( new BigDecimal( Cromosoma.parseDouble(valor) ) ));
         }
@@ -123,6 +127,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
                 individuo.getAptitud().divide( 
                     promedioAptitud, 2, RoundingMode.HALF_UP ) );
             sumatoriaVe = sumatoriaVe.add(individuo.getValorEsperado());
+            individuo.setProbabilidadAcumulada(sumatoriaVe);
         });
         promedioVe = sumatoriaVe.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
@@ -160,6 +165,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     
     @Override
     public boolean add(Cromosoma cromosoma) {
+        numeroIndividuos = numeroIndividuos.add(BigDecimal.ONE);
         return super.add(cromosoma);
     }
     

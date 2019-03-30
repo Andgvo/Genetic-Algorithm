@@ -52,6 +52,21 @@ public class Metodo<T extends Cromosoma> {
         generaciones = new ArrayList<>();
     }
     
+    public Metodo(BigDecimal numeroIndividuos, int numeroGeneraciones, Rango rango,
+            Funcion funcion, Seleccion metodoSeleccion, Mutacion tipoMutacion,
+                String padres, Class tipoIndividuo) {
+        this.numeroIndividuos = numeroIndividuos;
+        this.numeroGeneraciones = numeroGeneraciones;
+        this.rango = rango;
+        this.funcion = funcion;
+        this.metodoSeleccion = metodoSeleccion;
+        this.tipoMutacion = tipoMutacion;
+        this.tipoIndividuo = tipoIndividuo;
+        this.padres = Poblacion.parseToCromosoma(
+                "01101,11000,01000,10011,10111,01111",tipoIndividuo);
+        generaciones = new ArrayList<>();
+    }
+    
     public void executeGenetico(){
         for(int i = 0; i < numeroGeneraciones; i++){
             padres.evaluarPoblacion(funcion);
@@ -60,25 +75,28 @@ public class Metodo<T extends Cromosoma> {
             //hijos = tipoMutacion.mutar(padresSeleccionados);
             //generaciones.add(Collections.);
             //padres = hijos;
+            System.out.println(padres.imprimirPoblacion());
+            System.out.println(padres);
+            padresSeleccionados.evaluarPoblacion(funcion);
+            padresSeleccionados.setValoresEsperados();
+            System.out.println(padresSeleccionados.imprimirPoblacion());
+            System.out.println(padresSeleccionados);
         }
-        System.out.println(padres.imprimirPoblacion());
-        System.out.println(padres);
     }
     
     public static void main(String[] args) {
         BigDecimal numeroCromosomas = new BigDecimal(6);
+        Cromosoma.longitud = 5;
         int numeroGeneraciones = 1;
         Rango rango = new Rango(1, 10);
         Funcion f2 = new FuncCuadrado();
-        Seleccion ruleta = new Ruleta(Cromosoma.class);
-        Mutacion simple = new MutacionSimple(Cromosoma.class);
-        Poblacion padres = 
-            Poblacion.parseToCromosoma(
-                "01101,11000,01000,10011,10111,01111", numeroCromosomas , rango, Cromosoma.class);
-        //System.out.println(padres.imprimirPoblacion());
+        Seleccion<Cromosoma> ruleta = new Ruleta<>(Cromosoma.class);
+        Mutacion<Cromosoma> simple = new MutacionSimple<>(Cromosoma.class);
         Metodo<Cromosoma> ruletaBits = 
             new Metodo(numeroCromosomas,numeroGeneraciones,rango, f2,
-                ruleta, simple, padres, Cromosoma.class);
+                ruleta, simple, "01101,11000,01000,10011,10111,01111", Cromosoma.class);
+        //Definimos la longitud de la cadena
+        
         ruletaBits.executeGenetico();
         //mr.execute();
     }
