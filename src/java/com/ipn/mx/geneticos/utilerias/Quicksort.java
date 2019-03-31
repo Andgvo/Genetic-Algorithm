@@ -100,13 +100,4 @@ public abstract class Quicksort {
         return arrayResult;
     }
     
-    public static void main(String[] args) {
-        int[] lista = {2, 10, 3, 13, -1, 13, -10, 55, 11, 39, 1, 5, 8, 16, 17, 18, 8, 12, 4, 6, 15, 100, 7, 14, 9};
-        //int[] lista = { 2, 10, 3, 1, 5, 8, 4, 6, 7, 9};
-        System.out.println(Quicksort.converir(lista));
-        List l = Quicksort.quicksort(Quicksort.converir(lista));
-        System.out.println(l);
-        BigDecimal bg = new BigDecimal(8);
-        System.out.println(bg.doubleValue());
-    }
 }

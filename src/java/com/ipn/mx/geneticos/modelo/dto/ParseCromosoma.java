@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @author andres
  * @param <T extens Cromosoma>
  */
-public abstract class ParseCromosoma<T> {
+public abstract class ParseCromosoma<T extends Cromosoma> {
     protected Class<T> type;
     
     public ParseCromosoma(Class<T> type) {

@@ -15,7 +15,7 @@ import java.util.Random;
  * @author andres
  * @param <T extends Cromosoma>
  */
-public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
+public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     private final Class<T> type;
     private Rango rango;
     protected BigDecimal numeroIndividuos; //tamaño de la población
@@ -71,8 +71,6 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
      * Clase para convetir un String de forma "cromosoma, cromosoma, cromosoma" a
      * una poblacion de cromosomas de cierta clase.
      * @param elementos
-     * @param numeroIndividuos
-     * @param rango
      * @param type
      * @return 
      */
@@ -114,10 +112,10 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
      * @param funcion
      */
     public void evaluarPoblacion( Funcion funcion ){
-        for (Cromosoma individuo: this) {
+        this.stream().forEachOrdered((individuo) -> {
             individuo.setAptitud( funcion.f( individuo.getValorReal() ) );
             sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
-        }
+        });
         promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
     
@@ -157,14 +155,14 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<Cromosoma> {
     
     public String imprimirPoblacion(){
         StringBuilder sb = new StringBuilder();
-        this.forEach((t) -> {
-            sb.append(t).append("\n");
+        this.forEach((cromosoma) -> {
+            sb.append(cromosoma).append("\n");
         });
         return sb.toString();
     }
     
     @Override
-    public boolean add(Cromosoma cromosoma) {
+    public boolean add(T cromosoma) {
         numeroIndividuos = numeroIndividuos.add(BigDecimal.ONE);
         return super.add(cromosoma);
     }

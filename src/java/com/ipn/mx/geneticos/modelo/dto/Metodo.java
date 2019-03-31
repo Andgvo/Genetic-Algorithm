@@ -1,5 +1,9 @@
 package com.ipn.mx.geneticos.modelo.dto;
 
+import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
+import com.ipn.mx.geneticos.modelo.dto.mutacion.MutacionSimple;
+import com.ipn.mx.geneticos.modelo.dto.seleccion.Ruleta;
+import com.ipn.mx.geneticos.modelo.dto.seleccion.Seleccion;
 import com.ipn.mx.geneticos.utilerias.FuncCuadrado;
 import com.ipn.mx.geneticos.utilerias.Funcion;
 import com.ipn.mx.geneticos.utilerias.Rango;
@@ -26,20 +30,6 @@ public class Metodo<T extends Cromosoma> {
     private List<Poblacion<Cromosoma>> generaciones;
 
     public Metodo(BigDecimal numeroIndividuos, int numeroGeneraciones, Rango rango,
-            Funcion funcion, Seleccion metodoSeleccion, Mutacion tipoMutacion,
-                Poblacion<Cromosoma> padres, Class tipoIndividuo) {
-        this.numeroIndividuos = numeroIndividuos;
-        this.numeroGeneraciones = numeroGeneraciones;
-        this.rango = rango;
-        this.funcion = funcion;
-        this.metodoSeleccion = metodoSeleccion;
-        this.tipoMutacion = tipoMutacion;
-        this.tipoIndividuo = tipoIndividuo;
-        this.padres = padres;
-        generaciones = new ArrayList<>();
-    }
-
-    public Metodo(BigDecimal numeroIndividuos, int numeroGeneraciones, Rango rango,
             Funcion funcion, Seleccion metodoSeleccion, Mutacion tipoMutacion, Class tipoIndividuo) {
         this.numeroIndividuos = numeroIndividuos;
         this.numeroGeneraciones = numeroGeneraciones;
@@ -63,7 +53,7 @@ public class Metodo<T extends Cromosoma> {
         this.tipoMutacion = tipoMutacion;
         this.tipoIndividuo = tipoIndividuo;
         this.padres = Poblacion.parseToCromosoma(
-                "01101,11000,01000,10011,10111,01111",tipoIndividuo);
+                padres,tipoIndividuo);
         generaciones = new ArrayList<>();
     }
     
@@ -96,7 +86,6 @@ public class Metodo<T extends Cromosoma> {
             new Metodo(numeroCromosomas,numeroGeneraciones,rango, f2,
                 ruleta, simple, "01101,11000,01000,10011,10111,01111", Cromosoma.class);
         //Definimos la longitud de la cadena
-        
         ruletaBits.executeGenetico();
         //mr.execute();
     }
