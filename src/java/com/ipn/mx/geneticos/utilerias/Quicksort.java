@@ -17,6 +17,34 @@ public abstract class Quicksort {
         array.set(izq, aux);
     }
     
+    public static List<Integer> quicksortInt(List<Integer> array){
+        List  arrayResult = new ArrayList();
+        int tam = array.size();
+        if( tam > 0 ){
+            int pibote;
+            if( (tam % 2) != 0 )
+                pibote = (int)( Math.ceil((double) tam / 2 ) - 1 );
+            else
+                pibote = (int)( Math.floor((double) tam / 2 ) - 1 );
+            List<Integer> arrIzq = new ArrayList<>();
+            List<Integer> arrDer = new ArrayList<>();
+            for(Integer valor: array){
+                if(valor < array.get(pibote))
+                    arrIzq.add(valor);
+                else if(valor > array.get(pibote))
+                    arrDer.add(valor);
+            }
+            //Se una la parte izquierda y derecha ordenadas junto con el pibote
+            arrIzq = quicksortInt( arrIzq );
+            arrDer = quicksortInt( arrDer );
+            
+            arrayResult.addAll(arrIzq);
+            arrayResult.add( array.get(pibote) );
+            arrayResult.addAll(arrDer);
+        }
+        return arrayResult;
+    }
+    
     public static List<BigDecimal> quicksort( List<BigDecimal> array ){
         List  arrayResult = new ArrayList();
         int tam = array.size();

@@ -9,6 +9,6 @@ import com.ipn.mx.geneticos.modelo.dto.Poblacion;
  * @param <E extends Cromosoma>
  */
 public interface Cruza <E extends Cromosoma>{
-    public void cruzar(E cromosoma1, E cromosoma2);
+    public void cruzar(Poblacion<E> descendientes, E cromosoma1, E cromosoma2);
     public Poblacion<E> cruzarPoblacion(Poblacion<E> poblacion);
 }

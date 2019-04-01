@@ -28,7 +28,7 @@ public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Se
         BigDecimal r;
         Poblacion<T> nuevosPadres = new Poblacion(type);
         for(int i = 0; i < padres.size() ; i++){
-            numeroRandom = new BigDecimal( new Random().nextInt( sumatoriaVe) );
+            numeroRandom = new BigDecimal( new Random().nextInt( sumatoriaVe ) );
             r = numeroRandom.divide( cien , 2, RoundingMode.HALF_UP );
             T individuo = seleccion(padres, r);
             nuevosPadres.add(individuo);

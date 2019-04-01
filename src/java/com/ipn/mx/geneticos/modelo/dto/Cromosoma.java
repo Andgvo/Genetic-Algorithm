@@ -30,6 +30,14 @@ public class Cromosoma implements Serializable{
         probabilidadAcumulada = new BigDecimal(BigInteger.ZERO);
     }
     
+    public Cromosoma( List<Byte> cadenaBinaria ) {
+        valorReal = parseReal(cadenaBinaria);
+        this.cadenaBinaria = cadenaBinaria;
+        aptitud = new BigDecimal(BigInteger.ZERO);
+        valorEsperado = new BigDecimal(BigInteger.ZERO);
+        probabilidadAcumulada = new BigDecimal(BigInteger.ZERO);
+    }
+    
     public static List<Byte> parseByte( int valor ){
         List<Byte> cadena = new ArrayList<>();
         while( valor > 0 ){
@@ -39,13 +47,23 @@ public class Cromosoma implements Serializable{
         return cadena;
     }
     
+    public static BigDecimal parseReal(List<Byte> cadena){
+        int result = 0;
+        int potencia = 0;
+        for(Byte valorAlelo : cadena){
+            result+= (valorAlelo<<potencia);
+            potencia++;
+        }
+        return new BigDecimal(result);
+    }
+    
     public static double parseDouble( String valor ){
-        double result=0;
-        int base = 0;
+        double result = 0;
+        int potencia = 0;
         for(int i = valor.length(); i != 0; i--){
             byte r = Byte.parseByte(valor.charAt(i-1)+"");
-            result+= (r<<base);
-            base++;
+            result+= (r<<potencia);
+            potencia++;
         }
         return result;
     }
@@ -74,6 +92,10 @@ public class Cromosoma implements Serializable{
 
     public List<Byte> getCadenaBinaria() {
         return cadenaBinaria;
+    }
+    
+    public List<Byte> getCadenaBinaria(int ini, int fin) {
+        return cadenaBinaria.subList(ini, fin);
     }
     
     public List<Byte> getCadenaBinariaR() {

@@ -123,7 +123,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         this.stream().forEachOrdered((individuo) -> {
             individuo.setValorEsperado( 
                 individuo.getAptitud().divide( 
-                    promedioAptitud, 2, RoundingMode.HALF_UP ) );
+                    sumatoriaAptitud, 2, RoundingMode.HALF_UP ) );
             sumatoriaVe = sumatoriaVe.add(individuo.getValorEsperado());
             individuo.setProbabilidadAcumulada(sumatoriaVe);
         });
