@@ -22,7 +22,7 @@ public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Se
     @Override
     public Poblacion execute(Poblacion<T> padres) {
         //Se multiplica por 100 para posteriormente obtener decimales
-        int sumatoriaVe = padres.getSumatoriaVe().intValue() * 100;
+        int sumatoriaVe = (int) (padres.getSumatoriaVe().doubleValue() * 100.0);
         BigDecimal cien = new BigDecimal(100);
         BigDecimal numeroRandom;
         BigDecimal r;

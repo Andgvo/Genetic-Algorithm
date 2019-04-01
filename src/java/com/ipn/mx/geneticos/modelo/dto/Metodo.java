@@ -65,6 +65,21 @@ public class Metodo<T extends Cromosoma> {
 
     public void executeGenetico() {
         for (int i = 0; i < numeroGeneraciones; i++) {
+            padres.evaluarPoblacion(funcion);
+            padres.setValoresEsperados();
+            padresSeleccionados = metodoSeleccion.execute(padres);
+            padresSeleccionados = cruza.cruzarPoblacion(padresSeleccionados);
+            hijos = tipoMutacion.mutarPoblacion(padresSeleccionados);
+            generaciones.add(padres);
+            padres = hijos;
+        }
+        System.out.println(generaciones.get(0));
+        System.out.println(generaciones.get(1));
+        System.out.println(generaciones.get(2));
+    }
+    
+    public void executeGeneticoDebug() {
+        for (int i = 0; i < numeroGeneraciones; i++) {
             System.out.println("********** PADRES ************* ");
             padres.evaluarPoblacion(funcion);
             padres.setValoresEsperados();
@@ -83,12 +98,15 @@ public class Metodo<T extends Cromosoma> {
             padres = hijos;
             System.out.println("\n---------------------------------------\n\n");
         }
+        System.out.println(generaciones.get(0));
+        System.out.println(generaciones.get(1));
+        System.out.println(generaciones.get(2));
     }
-
+    
     public static void main(String[] args) {
         BigDecimal numeroCromosomas = new BigDecimal(6);
         Cromosoma.longitud = 5;
-        int numeroGeneraciones = 10;
+        int numeroGeneraciones = 4;
         Rango rango = new Rango(1, 10);
         Funcion f2 = new FuncCuadrado();
         Seleccion<Cromosoma> ruleta = new Ruleta<>(Cromosoma.class);
@@ -99,6 +117,7 @@ public class Metodo<T extends Cromosoma> {
                         ruleta, cruzaNPuntos, simple, "01101,11000,01000,10011,10111,01111", Cromosoma.class);
         //Definimos la longitud de la cadena
         ruletaBits.executeGenetico();
+//        ruletaBits.executeGeneticoDebug();
         //mr.execute();
     }
 }
