@@ -79,7 +79,7 @@ public class Metodo<T extends Cromosoma> {
         generaciones = new ArrayList<>();
     }
 
-    public void executeGenetico() {
+    public List<Poblacion<T>> executeGenetico() {
         for (int i = 0; i < numeroGeneraciones; i++) {
             padres.evaluarPoblacion(funcion);
             padres.setValoresEsperados();
@@ -89,6 +89,7 @@ public class Metodo<T extends Cromosoma> {
             generaciones.add(padres);
             padres = hijos;
         }
+        return generaciones;
     }
     
     public void executeGeneticoDebug() {

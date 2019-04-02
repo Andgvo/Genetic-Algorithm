@@ -66,7 +66,7 @@
     </servlet>
     <servlet>
         <servlet-name>RuletaServlet</servlet-name>
-        <servlet-class>com.ipn.mx.geneticos.servlet.tecnica.RuletaServlet</servlet-class>
+        <servlet-class>com.ipn.mx.geneticos.servlet.tecnica.AlgoritmosGeneticosServlet</servlet-class>
     </servlet>
     <!-- JSP FILES  -->
     <servlet>
@@ -82,8 +82,8 @@
         <jsp-file>/view/ejercicios/tiposDatos.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>ruleta</servlet-name>
-        <jsp-file>/view/tecnicas/ruleta.jsp</jsp-file>
+        <servlet-name>algoritmosGeneticos</servlet-name>
+        <jsp-file>/view/tecnicas/algoritmosGeneticos.jsp</jsp-file>
     </servlet>
     <!-- JSP MAPPING -->
     <servlet-mapping>
@@ -99,8 +99,8 @@
         <url-pattern>/tiposDatos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ruleta</servlet-name>
-        <url-pattern>/ruleta</url-pattern>
+        <servlet-name>algoritmosGeneticos</servlet-name>
+        <url-pattern>/algoritmosGeneticos</url-pattern>
     </servlet-mapping>
     <!-- SERVLET MAPPING -->
     <servlet-mapping>
