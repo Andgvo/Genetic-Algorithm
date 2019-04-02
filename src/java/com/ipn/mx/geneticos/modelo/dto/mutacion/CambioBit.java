@@ -20,7 +20,7 @@ public class CambioBit<T extends Cromosoma> extends ParseCromosoma<T> implements
     private T individuo;
     private List<Integer> indices;
     
-    public CambioBit(Class type, String porcentajeSting) {
+    public CambioBit(String porcentajeSting, Class type) {
         super(type);
         //Pasando cantidad a porcentaje dividiendo entre 100
         porcentaje = new BigDecimal(porcentajeSting).movePointLeft(2);

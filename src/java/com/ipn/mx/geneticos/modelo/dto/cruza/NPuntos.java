@@ -18,7 +18,7 @@ public class NPuntos<T extends Cromosoma> extends ParseCromosoma<T> implements C
     private List<Byte> cadenaHijo1;
     private List<Byte> cadenaHijo2;
 
-    public NPuntos(Class type, int puntos) {
+    public NPuntos(int puntos, Class type) {
         super(type);
         this.puntos = puntos;
     }
@@ -59,4 +59,9 @@ public class NPuntos<T extends Cromosoma> extends ParseCromosoma<T> implements C
         return descendientes;
     }
 
+    @Override
+    public String toString() {
+        return "NPuntos{" + "puntos=" + puntos + '}';
+    }
+    
 }
