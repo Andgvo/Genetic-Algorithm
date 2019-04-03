@@ -47,6 +47,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     //Se usa en Quicksort
     public Poblacion(Class<T> type, List<T> cromosomas) {
         sumatoriaAptitud = new BigDecimal(0);
+        numeroIndividuos = new BigDecimal(0);
         this.type = type;
         addAll(cromosomas);
     }
@@ -102,7 +103,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
             this.add(individuo);
             sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
         }
-        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos);
+        promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos, 2, RoundingMode.HALF_UP);
     }
     
     /**
@@ -139,10 +140,6 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
       catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
           return null;
        }         
-    }
-    
-    public int getN() {
-        return size();
     }
     
     public BigDecimal getSumatoriaAptitud(){

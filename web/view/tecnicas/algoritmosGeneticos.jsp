@@ -81,13 +81,18 @@
                                     </div>
                                     <!-- CONFIGURACION PARA ALEATORIO -->
                                     <div v-else-if="tipoPoblacionIni === 'BLOQUE'" class="row">
-                                        <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <label for="txtNumeroPoblacion">Bloque de cromosomas con valor decimal:</label>
-                                            <input type="text" class="form-control" id="txtBloqueIndividuosReal" name="txtBloqueIndividuosReal" aria-describedby="emailHelp" value="10" placeholder="10">
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <label for="txtNumeroPoblacion">Tipo de Bloque: </label>
+                                            <div class="input-group mb-3">
+                                                <select v-model='tipoBloque' class="custom-select" id="selTipoBloque" name="selTipoBloque">
+                                                    <option value="BINARIO" selected>Binario</option>
+                                                    <option value="REAL">Reales</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <label for="txtNumeroPoblacion">Bloque de cromosomas con valor binario</label>
-                                            <input type="text" class="form-control" id="txtBloqueIndividuosBinario" name="txtBloqueIndividuosBinario" aria-describedby="emailHelp" value="01101,11000,01000,10011,10111,01111" placeholder="10">
+                                        <div class="form-group col-12 col-sm-8 col-md-8 col-lg-8">
+                                            <label for="txtBloque">Bloque de cromosomas {{tipoBloque}}</label>
+                                            <input type="text" class="form-control" id="txtBloque" name="txtBloque" aria-describedby="emailHelp" value="01101,11000,01000,10011,10111,01111" placeholder="10">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -120,7 +125,7 @@
                                                 <div class="input-group-prepend">
                                                     <label class="input-group-text" for="selMutacion">Mutación</label>
                                                 </div>
-                                                <select class="custom-select" id="selMutacion" name="selCruza">
+                                                <select class="custom-select" id="selMutacion" name="selMutacion">
                                                     <option value="CAMBIO_BTI" selected>Cambio de Bit</option>
                                                     <option value="1">One</option>
                                                     <option value="2">Two</option>
@@ -129,8 +134,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    
                                 </div>
                             </div>
                         </form>
@@ -144,9 +147,7 @@
                                     </div>
                                     <div class="form-group col-6">
                                         <div class="text-right">
-                                            <button id="btnGetAleatorios" class="btn btn-success" > Generar aleatorio </button>
-                                            <button id="btnRuleta" class="btn btn-warning" > Enviar bloque </button>
-                                            <!--<button id="btnQuicksort" class="btn btn-info" > Quicksort </button>-->
+                                            <button id="btnEjecutarAG" class="btn btn-success btn-lg" > Ejecutar Algoritmo Genetico </button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,6 +236,7 @@
                 el: '#app',
                 data: {
                     tipoPoblacionIni: 'BLOQUE',
+                    tipoBloque: 'BINARIO',
                     ruleta: {
                         f: 0,
                         n: 1,
@@ -253,6 +255,7 @@
                     url: 'AlgoritmosGeneticosServlet',
                     data: $("#formMetodo").serializeArray(),
                     success: function (responseText) {
+                        console.log(responseText);
                         app.$data.generaciones = JSON.parse(responseText);
                     }
                 });
@@ -261,7 +264,7 @@
             function executeAlgoritmoGeneticoAleatorio() {
                 $.ajax({
                     type: 'GET',
-                    url: 'executeAlgoritmoGeneticoAleatorio',
+                    url: 'AlgoritmosGeneticosServlet',
                     data: $("#formMetodo").serializeArray(),
                     success: function (responseText) {
                         app.$data.generaciones = JSON.parse(responseText);
@@ -270,9 +273,7 @@
             }
 
             // Init()
-            $("#btnExecuteAlgoritmoGenetico").click(executeAlgoritmoGenetico);
-            $("#btnExecuteAlgoritmoGeneticoAleatorio").click(executeAlgoritmoGeneticoAleatorio);
-
+            $("#btnEjecutarAG").click(executeAlgoritmoGenetico);
         </script>
     </body>
 </html>

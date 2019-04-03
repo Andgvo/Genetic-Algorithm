@@ -65,7 +65,7 @@
         <servlet-class>com.ipn.mx.geneticos.servlet.ejercicio.CromosomaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RuletaServlet</servlet-name>
+        <servlet-name>AlgoritmosGeneticosServlet</servlet-name>
         <servlet-class>com.ipn.mx.geneticos.servlet.tecnica.AlgoritmosGeneticosServlet</servlet-class>
     </servlet>
     <!-- JSP FILES  -->
@@ -168,8 +168,8 @@
         <url-pattern>/CromosomaServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RuletaServlet</servlet-name>
-        <url-pattern>/RuletaServlet</url-pattern>
+        <servlet-name>AlgoritmosGeneticosServlet</servlet-name>
+        <url-pattern>/AlgoritmosGeneticosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

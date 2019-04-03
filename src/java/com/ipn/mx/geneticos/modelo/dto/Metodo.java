@@ -1,5 +1,6 @@
 package com.ipn.mx.geneticos.modelo.dto;
 
+import com.ipn.mx.geneticos.modelo.dao.factory.MetodoFactory;
 import com.ipn.mx.geneticos.modelo.dto.cruza.Cruza;
 import com.ipn.mx.geneticos.modelo.dto.cruza.NPuntos;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
@@ -63,19 +64,19 @@ public class Metodo<T extends Cromosoma> {
         generaciones = new ArrayList<>();
     }
     
-    public Metodo(double numeroIndividuos, int numeroGeneraciones, Rango rango,
-            Funcion funcion, String metodoSeleccion, String cruza, String tipoMutacion,
-            String padres, Class tipoIndividuo) {
-        this.numeroIndividuos = new BigDecimal(numeroIndividuos);
+    public Metodo( int numeroGeneraciones, int longitudCromosoma, String porcentaje,
+            String bloque, Funcion funcion, String seleccion, String cruza, String mutacion,
+             Class tipoIndividuo) {
         this.numeroGeneraciones = numeroGeneraciones;
-        this.rango = rango;
+        Cromosoma.longitud = longitudCromosoma;
         this.funcion = funcion;
-//        this.metodoSeleccion = metodoSeleccion;
-//        this.cruza = cruza;
-//        this.tipoMutacion = tipoMutacion;
+        this.metodoSeleccion = MetodoFactory.getSeleccion(seleccion, tipoIndividuo);
+        this.cruza = MetodoFactory.getCruza(cruza, 2, tipoIndividuo);
+        this.tipoMutacion = MetodoFactory.getMutacion(mutacion, porcentaje, tipoIndividuo);
         this.tipoIndividuo = tipoIndividuo;
         this.padres = Poblacion.parseToCromosoma(
-                padres, tipoIndividuo);
+                bloque, tipoIndividuo);
+        System.out.println("--------------->  PADRES = "+padres);
         generaciones = new ArrayList<>();
     }
 
