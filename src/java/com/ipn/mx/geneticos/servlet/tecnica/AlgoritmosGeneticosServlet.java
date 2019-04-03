@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ipn.mx.geneticos.modelo.dao.RuletaDAO;
 import com.ipn.mx.geneticos.modelo.dto.Cromosoma;
+import com.ipn.mx.geneticos.modelo.dto.JsonPoblacion;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,9 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
 
     private final RuletaDAO dao = new RuletaDAO(Cromosoma.class);
     private final Gson gson = new GsonBuilder().create();
+    
     private List<Poblacion<Cromosoma>> generaciones;
+    private List<JsonPoblacion> lista;
     
     private String accion;
     private int numeroGeneraciones;
@@ -52,11 +55,13 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        accion = request.getParameter("radioTipoPoblacion");
+        accion = request.getParameter("txtAccion");
         
         try (PrintWriter out = response.getWriter()) {
             if( accion == null ){
                 out.println("ERROR");
+            }else if(accion.equals("GET_POBLACION")){
+                getPoblacion(request, out);
             }else{ 
                 //VALORES PARA GENERAR EL METODO
                 numeroGeneraciones = Integer.parseInt(request.getParameter("txtNumeroGeneracion"));
@@ -82,7 +87,6 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private void executeAlgoritmoGenetico(HttpServletRequest request, PrintWriter out) {
         tipoBloque = request.getParameter("selTipoBloque");
         bloque = request.getParameter("txtBloque");
-        System.out.println("");
         switch(tipoBloque){
             case "BINARIO":
                 generaciones = 
@@ -94,7 +98,7 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
             default:
                 break;
         }
-        out.print( gson.toJson(generaciones) );
+        out.print( generaciones.toString() );
     }
     
     private void executeAlgoritmoGeneticoAleatorio(HttpServletRequest request, PrintWriter out) {
@@ -140,6 +144,12 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-
+    private void getPoblacion(HttpServletRequest request, PrintWriter out) {
+        int idPoblacion = Integer.parseInt(request.getParameter("idPoblacion"));
+        if(generaciones != null){
+            out.println(generaciones.get(idPoblacion).individuosToJSON());
+        }else{
+            out.println("ERROR POBLACION");
+        }
+    }
 }

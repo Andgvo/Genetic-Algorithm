@@ -35,13 +35,13 @@
                                         <label> Tipo de Población inicial:  </label><br>
                                         <div class="form-check form-check-inline">                                        
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input form-check-input" value="BLOQUE" type="radio" id="radioBloque" name="radioTipoPoblacion" checked=""  v-model="tipoPoblacionIni">
+                                                <input class="custom-control-input form-check-input" value="BLOQUE" type="radio" id="radioBloque" name="txtAccion" checked=""  v-model="tipoPoblacionIni">
                                                 <label class="custom-control-label form-check-label" for="radioBloque">Bloque Contructor</label>
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">                                        
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input form-check-input" value="ALEATORIO" type="radio" id="radioAleatorio" name="radioTipoPoblacion" v-model="tipoPoblacionIni">
+                                                <input class="custom-control-input form-check-input" value="ALEATORIO" type="radio" id="radioAleatorio" name="txtAccion" v-model="tipoPoblacionIni">
                                                 <label class="custom-control-label form-check-label" for="radioAleatorio">Aleatorio</label>
                                             </div>
                                         </div>
@@ -57,11 +57,11 @@
                                         </div>
                                         <div class="form-group col-6 col-sm-3 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Longitud de cromosomas:</label>
-                                            <input type="number" class="form-control" id="txtLongitud" name="txtLongitud" aria-describedby="emailHelp" value="10" placeholder="10">
+                                            <input type="number" class="form-control" id="txtLongitud" name="txtLongitud" aria-describedby="emailHelp" value="5" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-3 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Porcentaje de mutacion:</label>
-                                            <input type="number" class="form-control" id="txtPorcentaje" name="txtPorcentaje" aria-describedby="emailHelp" value="10" placeholder="10">
+                                            <input type="number" class="form-control" id="txtPorcentaje" name="txtPorcentaje" aria-describedby="emailHelp" value="20" placeholder="10">
                                         </div>       
                                     </div>
                                     <!-- CONFIGURACION PARA BLOQUE -->
@@ -161,20 +161,20 @@
                                     <table class='table table-xs table-hover'>
                                         <thead class=''>
                                             <tr class='table-info'>
-                                                <th scope='col'> Num </th>
-                                                <th scope='col'> Cadena Bits </th>
-                                                <th scope='col'> Reales </th>
-                                                <th scope='col'> Aptitud </th>
-                                                <th scope='col'> Ve </th>
+                                                <th scope='col' colspan="11" class="text-center"> Generaciones </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for='(individuo,index) in ruleta.poblacion' >
-                                                <td>{{index+1}}</td>
-                                                <td>{{individuo.cadenaBinaria}}</td>
-                                                <td>{{individuo.valorReal}}</td>
-                                                <td>{{individuo.aptitud}}</td>
-                                                <td>{{individuo.valorEsperado}}</td>
+                                            <tr v-for='(bloque,index) in generarBloques(generaciones)'>
+                                                <td scope='row' colspan="1">
+                                                    {{(index*10)+1}} - {{ (index+1)*10 }}
+                                                </td>
+                                                <td v-for='(poblacion, index2) in bloque'>
+                                                    <a class="poblacion-button-modal" 
+                                                       v-on:click="setPoblacionTable((index*10)+index2, poblacion)">
+                                                        Gen. {{(index*10)+index2+1 }}
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -186,34 +186,57 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="modalAgregar" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div id="source-modal" class="modal fade">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <form id="formAgregarCategoria"  method="post">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="exampleModalLabel">Datos de la categoría</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="hidden" value="addCategoria" class="form-control" id="txtAccion" name="txtAccion" required>
-                                    <div class="form-group">
-                                        <label for="txtNombreCategoria">Nombre categría</label>
-                                        <input type="text" class="form-control" id="txtNombreCategoria" name="txtNombreCategoria" placeholder="Refresco" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="txtDescripcionCategoria">Descripción</label>
-                                        <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcionCategoria" placeholder="Ingresa algo que describade que trata la materia" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                                <button id="btnAgregarCategoria" type="button" class="btn btn-outline-success">Agregar</button>
-                            </div>
-                        </form>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Poblacion No. {{poblacion.id+1}}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table class='table table-sm'>
+                                <thead class=''>
+                                    <tr class='table-light'>
+                                        <th scope='col'> Sumatoria Aptitud </th>
+                                        <th scope='col'> Promedio Aptitud </th>
+                                        <th scope='col'> Sumatoria Ve </th>
+                                        <th scope='col'> Promedio Ve </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{poblacion.resultados.SumatoriaAptitud}}</td>
+                                        <td>{{poblacion.resultados.PromedioAptitud}}</td>
+                                        <td>{{poblacion.resultados.SumatoriaVe}}</td>
+                                        <td>{{poblacion.resultados.PromedioVe}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class='table table-sm table-hover'>
+                                <thead class=''>
+                                    <tr class='table-light'>
+                                        <th scope='col'> n </th>
+                                        <th scope='col'> Cadena </th>
+                                        <th scope='col'> Real </th>
+                                        <th scope='col'> Aptitud </th>
+                                        <th scope='col'> Ve </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='(individuo, index) in poblacion.individuos' >
+                                        <td>{{index+1}}</td>
+                                        <td>{{individuo.cadenaBinaria}}</td>
+                                        <td>{{individuo.valorReal}}</td>
+                                        <td>{{individuo.aptitud}}</td>
+                                        <td>{{individuo.valorEsperado}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Siguiente</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,6 +248,13 @@
         <script>
             //bootstrapValidate('txtNombreCategoria','required:Por favor llena el campo');
             $(document).ready(function () {});
+
+            //Autocomplete modals
+            function setListenerModals() {
+                $(".poblacion-button-modal").click(function () {
+                    $("#source-modal").modal();
+                });
+            }
 
             const swalWithBootstrapButtons = Swal.mixin({
                 confirmButtonClass: 'btn btn-outline-success',
@@ -244,30 +274,61 @@
                         r: 0,
                         t: 0
                     },
-                    generaciones: []
+                    generaciones: [],
+                    poblacion: {
+                        id: -1,
+                        resultados: {},
+                        individuos: []
+                    }
                 },
-                methods: {}
+                methods: {
+                    generarBloques: function (listaPoblaciones) {
+                        var bloques = [];
+                        var bloque = [];
+                        var i;
+                        for (i = 0; i < listaPoblaciones.length; i++) {
+                            bloque.push(listaPoblaciones[i]);
+                            if (((i + 1) % 10) === 0) {
+                                bloques.push(bloque);
+                                bloque = [];
+                            }
+                        }
+                        if ((i % 10) !== 0) {
+                            bloques.push(bloque);
+                        }
+                        return bloques;
+                    },
+                    setPoblacionTable: function (id, poblacion) {
+                        this.poblacion.id = id;
+                        this.poblacion.resultados = poblacion;
+                        getPoblacion(id);
+                        $("#source-modal").modal();
+                    }
+                }
             });
-            
+
             function executeAlgoritmoGenetico() {
                 $.ajax({
                     type: 'GET',
                     url: 'AlgoritmosGeneticosServlet',
                     data: $("#formMetodo").serializeArray(),
                     success: function (responseText) {
-                        console.log(responseText);
                         app.$data.generaciones = JSON.parse(responseText);
                     }
                 });
             }
-            
-            function executeAlgoritmoGeneticoAleatorio() {
+
+            function getPoblacion(indice) {
                 $.ajax({
                     type: 'GET',
                     url: 'AlgoritmosGeneticosServlet',
-                    data: $("#formMetodo").serializeArray(),
+                    data: {
+                        txtAccion: 'GET_POBLACION',
+                        idPoblacion: indice
+                    },
                     success: function (responseText) {
-                        app.$data.generaciones = JSON.parse(responseText);
+                        console.log(responseText);
+                        app.$data.poblacion.individuos = JSON.parse(responseText);
                     }
                 });
             }

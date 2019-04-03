@@ -76,7 +76,6 @@ public class Metodo<T extends Cromosoma> {
         this.tipoIndividuo = tipoIndividuo;
         this.padres = Poblacion.parseToCromosoma(
                 bloque, tipoIndividuo);
-        System.out.println("--------------->  PADRES = "+padres);
         generaciones = new ArrayList<>();
     }
 

@@ -18,6 +18,17 @@ body{
     width:100%;
 }
 
+a:not([href]):not([tabindex]) {
+  color: #18BC9C !important;
+  cursor:pointer;
+  text-decoration: none !important;
+}
+
+a:not([href]):not([tabindex]):hover {
+  color: #0f7864;
+  text-decoration: underline !important;
+}
+
 /* animations */
 .card-hover:hover{
     /*margin-top: -4px;*/

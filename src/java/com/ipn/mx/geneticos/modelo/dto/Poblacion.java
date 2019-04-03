@@ -149,12 +149,60 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     public BigDecimal getSumatoriaVe() {
         return sumatoriaVe;
     }
-    
+
+    public Class<T> getType() {
+        return type;
+    }
+
+    public Rango getRango() {
+        return rango;
+    }
+
+    public BigDecimal getNumeroIndividuos() {
+        return numeroIndividuos;
+    }
+
+    public BigDecimal getPromedioAptitud() {
+        return promedioAptitud;
+    }
+
+    public BigDecimal getPromedioVe() {
+        return promedioVe;
+    }
+        
     public String imprimirPoblacion(){
         StringBuilder sb = new StringBuilder();
         this.forEach((cromosoma) -> {
             sb.append(cromosoma).append("\n");
         });
+        return sb.toString();
+    }
+    
+    /**
+     * Convierte los individuos de la poblacion a notación JSON
+     * @return JSON de individuos de la poblacion
+     */
+    public String individuosToJSON(){
+        StringBuilder sb = new StringBuilder("[");
+        this.forEach((cromosoma) -> {
+            sb.append(cromosoma.toJSON()).append(",");
+        });
+        sb.setCharAt( sb.lastIndexOf(","), ' ');
+        sb.append("]");
+        return sb.toString();
+    }
+    
+    /**
+     * Convierte los valores finales de sumatoria y promedio aptidud y Ve 
+     * de la poblacion en JSON.
+     * @return JSON resultado de la poblacion
+     */
+    public String resulToJSON(){
+        StringBuilder sb = new StringBuilder("{");
+        sb.append(" \"SumatoriaAptitud\" : ").append(sumatoriaAptitud)
+        .append(", \"PromedioAptitud\" : ").append(promedioAptitud)
+        .append(", \"SumatoriaVe\" : ").append(sumatoriaVe)
+        .append(", \"PromedioVe\": ").append(promedioVe).append("}");
         return sb.toString();
     }
     
@@ -166,11 +214,11 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("SumatoriaAptitud= ").append(sumatoriaAptitud)
-        .append(" PromedioAptitud= ").append(promedioAptitud)
-        .append(" SumatoriaVe= ").append(sumatoriaVe)
-        .append(" PromedioVe= ").append(promedioVe);
+        StringBuilder sb = new StringBuilder("{");
+        sb.append(" \"SumatoriaAptitud\" : ").append(sumatoriaAptitud)
+        .append(", \"PromedioAptitud\" : ").append(promedioAptitud)
+        .append(", \"SumatoriaVe\" : ").append(sumatoriaVe)
+        .append(", \"PromedioVe\": ").append(promedioVe).append("}");
         return sb.toString();
     }
     

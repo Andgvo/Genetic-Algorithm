@@ -44,13 +44,6 @@ public class RuletaDAO<T extends Cromosoma> {
     public List<Poblacion<Cromosoma>> executeAG(
             int numeroGeneraciones, int longitudCromosoma, String porcentajeMutacion,
                 String bloque, String seleccion, String cruza, String mutacion) {
-        System.out.println("numeroGeneraciones = "+numeroGeneraciones);
-        System.out.println("longitudCromosoma = " + longitudCromosoma);
-        System.out.println("porcentaje = "+porcentajeMutacion);
-        System.out.println("bloque = "+ bloque);
-        System.out.println("seleccion "+ seleccion);
-        System.out.println("cruza = "+cruza);
-        System.out.println("mutacion = "+mutacion);
         metodo = new Metodo(
             numeroGeneraciones, longitudCromosoma, porcentajeMutacion, bloque, funcion, seleccion, cruza, mutacion, tipoIndividuo);
         return metodo.executeGenetico();
