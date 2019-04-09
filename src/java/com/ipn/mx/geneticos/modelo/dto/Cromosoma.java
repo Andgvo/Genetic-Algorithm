@@ -140,12 +140,12 @@ public class Cromosoma implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("valorReal= ").append(valorReal)
-                .append("\tcadenaBinaria= ").append(cadenaBinaria)
-                .append("\taptitud= ").append(aptitud)
-                .append("\tVe= ").append(valorEsperado)
-                .append("\tProb. Acum.= ").append(probabilidadAcumulada);
+        StringBuilder sb = new StringBuilder("{");
+        sb.append("\"valorReal\": ").append(valorReal)
+                .append(",\"cadenaBinaria\": \"").append(cadenaBinaria).append("\"")
+                .append(",\"aptitud\": ").append(aptitud)
+                .append(",\"valorEsperado\": ").append(valorEsperado)
+                .append(",\"probabilidadAcumulada\": ").append(probabilidadAcumulada).append("}");
         return sb.toString();
     }
 }

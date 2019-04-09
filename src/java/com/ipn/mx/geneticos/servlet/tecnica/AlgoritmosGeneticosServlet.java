@@ -98,6 +98,7 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
             default:
                 break;
         }
+        System.out.println(generaciones.get(0).toString());
         out.print( generaciones.toString() );
     }
     

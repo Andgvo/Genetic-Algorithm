@@ -23,6 +23,8 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     protected BigDecimal promedioAptitud;
     protected BigDecimal sumatoriaVe;
     protected BigDecimal promedioVe;
+    protected T cromosomaMin;
+    protected T cromosomaMax;
     
     //Tambien se usa en quicksort :'v
     public Poblacion(Class<T> type) {
@@ -32,6 +34,8 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         sumatoriaVe = new BigDecimal(0);
         promedioVe = new BigDecimal(0);
         this.type = type;
+        cromosomaMin = instantiateFromType(BigDecimal.ZERO);
+        cromosomaMax = instantiateFromType(BigDecimal.ZERO);
     }
     
     // PARA UN FUTURO. SE PUEDE ELIMINAR
@@ -42,6 +46,8 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         this.rango = rango;
         this.sumatoriaVe = new  BigDecimal(0);
         this.promedioVe = new BigDecimal(0);
+        cromosomaMin = instantiateFromType(BigDecimal.ZERO);
+        cromosomaMax = instantiateFromType(BigDecimal.ZERO);
     }
     
     //Se usa en Quicksort
@@ -50,6 +56,8 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         numeroIndividuos = new BigDecimal(0);
         this.type = type;
         addAll(cromosomas);
+        cromosomaMin = instantiateFromType(BigDecimal.ZERO);
+        cromosomaMax = instantiateFromType(BigDecimal.ZERO);
     }
     
     /**
@@ -113,9 +121,11 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
      * @param funcion
      */
     public void evaluarPoblacion( Funcion funcion ){
+        cromosomaMin = this.get(0);
         this.stream().forEachOrdered((individuo) -> {
             individuo.setAptitud( funcion.f( individuo.getValorReal() ) );
             sumatoriaAptitud = sumatoriaAptitud.add(individuo.getAptitud());
+            comparaMinMax(individuo);
         });
         promedioAptitud = sumatoriaAptitud.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
@@ -129,6 +139,14 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
             individuo.setProbabilidadAcumulada(sumatoriaVe);
         });
         promedioVe = sumatoriaVe.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
+    }
+    
+    private void comparaMinMax(T prospecto){
+        if(cromosomaMax.getAptitud().subtract(prospecto.getAptitud()).doubleValue() < 0){
+            cromosomaMax = prospecto;
+        }else if(cromosomaMin.getAptitud().subtract(prospecto.getAptitud()).doubleValue() > 0){
+            cromosomaMin = prospecto;
+        }
     }
     
     private T instantiateFromType( BigDecimal valor ) {
@@ -217,6 +235,8 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         StringBuilder sb = new StringBuilder("{");
         sb.append(" \"SumatoriaAptitud\" : ").append(sumatoriaAptitud)
         .append(", \"PromedioAptitud\" : ").append(promedioAptitud)
+        .append(", \"cromosomaMax\" : ").append(cromosomaMax)
+        .append(", \"cromosomaMin\" : ").append(cromosomaMin)
         .append(", \"SumatoriaVe\" : ").append(sumatoriaVe)
         .append(", \"PromedioVe\": ").append(promedioVe).append("}");
         return sb.toString();

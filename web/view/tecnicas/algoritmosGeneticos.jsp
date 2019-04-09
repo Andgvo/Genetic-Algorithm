@@ -25,7 +25,7 @@
                             <div class="col-4"></div>
                         </div>
                         <hr>
-                        <form id="formMetodo">
+                        <form id="formMetodo" @submit="checkForm">
                             <div class="row">
                                 <div class="col-12">
                                     <p>Aquí podrás configurar el algoritmos genetico que deseas ejecutar.</p>
@@ -103,8 +103,8 @@
                                                 </div>
                                                 <select class="custom-select" id="selSeleccion" name="selSeleccion">
                                                     <option value="RULETA" selected>Ruleta</option>
-                                                    <option value="TORNEO">One</option>
-                                                    <option value="JERARQUICO">Two</option>
+                                                    <option value="TORNEO">Torneo</option>
+                                                    <option value="JERARQUICO">Jerarquia</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -180,6 +180,12 @@
                                     </table>
                                 </div>
                             </div>
+                        </div><!-- /row -->
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <canvas id="graphCromosomas"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,17 +202,21 @@
                         <div class="modal-body">
                             <table class='table table-sm'>
                                 <thead class=''>
-                                    <tr class='table-light'>
-                                        <th scope='col'> Sumatoria Aptitud </th>
-                                        <th scope='col'> Promedio Aptitud </th>
-                                        <th scope='col'> Sumatoria Ve </th>
-                                        <th scope='col'> Promedio Ve </th>
+                                    <tr class='table-warning'>
+                                        <th scope='col'> &Sigma; Aptitud </th>
+                                        <th scope='col'> Prom. Aptitud </th>
+                                        <th scope='col'> Máximo </th>
+                                        <th scope='col'> Mínimo </th>
+                                        <th scope='col'> &Sigma; Ve </th>
+                                        <th scope='col'> Prom. Ve </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{poblacion.resultados.SumatoriaAptitud}}</td>
                                         <td>{{poblacion.resultados.PromedioAptitud}}</td>
+                                        <td>{{poblacion.resultados.cromosomaMax.valorReal}}</td>
+                                        <td>{{poblacion.resultados.cromosomaMin.valorReal}}</td>
                                         <td>{{poblacion.resultados.SumatoriaVe}}</td>
                                         <td>{{poblacion.resultados.PromedioVe}}</td>
                                     </tr>
@@ -214,7 +224,7 @@
                             </table>
                             <table class='table table-sm table-hover'>
                                 <thead class=''>
-                                    <tr class='table-light'>
+                                    <tr class='table-info'>
                                         <th scope='col'> n </th>
                                         <th scope='col'> Cadena </th>
                                         <th scope='col'> Real </th>
@@ -234,8 +244,8 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Siguiente</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button v-if="(poblacion.id-1) >= 0 " type="button" v-on:click="setPoblacionTable(poblacion.id-1, generaciones[poblacion.id-1] )" class="btn btn-primary">Anterior</button>
+                            <button v-if="(poblacion.id+1) < generaciones.length" type="button" v-on:click="setPoblacionTable(poblacion.id+1, generaciones[poblacion.id+1] )" class="btn btn-primary">Siguiente</button>
                         </div>
                     </div>
                 </div>
@@ -245,17 +255,24 @@
 
         <!-- footer -->
         <%@ include file="../../shared/footer.jsp" %>
+        <script src="<%= Route.STATIC %>/js/Chart.min.js"></script>
         <script>
             //bootstrapValidate('txtNombreCategoria','required:Por favor llena el campo');
             $(document).ready(function () {});
 
+            //COSTANT
+            class Cromosoma{
+                contructor(valorReal, cadenaBinaria, aptitud, valorEsperado,
+                    probabilidadAcumulada){
+                }                
+            }
             //Autocomplete modals
             function setListenerModals() {
                 $(".poblacion-button-modal").click(function () {
                     $("#source-modal").modal();
                 });
             }
-
+            
             const swalWithBootstrapButtons = Swal.mixin({
                 confirmButtonClass: 'btn btn-outline-success',
                 cancelButtonClass: 'btn btn-outline-danger',
@@ -277,7 +294,14 @@
                     generaciones: [],
                     poblacion: {
                         id: -1,
-                        resultados: {},
+                        resultados: {
+                            PromedioAptitud: 0,
+                            PromedioVe: 0,
+                            SumatoriaAptitud: 0,
+                            SumatoriaVe: 0,
+                            cromosomaMax: {},
+                            cromosomaMin: {}
+                        },
                         individuos: []
                     }
                 },
@@ -303,6 +327,11 @@
                         this.poblacion.resultados = poblacion;
                         getPoblacion(id);
                         $("#source-modal").modal();
+                    },
+                    checkForm: function (e) {
+                        this.errors = [];
+                        
+                        e.preventDefault();
                     }
                 }
             });
@@ -314,6 +343,7 @@
                     data: $("#formMetodo").serializeArray(),
                     success: function (responseText) {
                         app.$data.generaciones = JSON.parse(responseText);
+                        updateGraph(app.$data.generaciones);
                     }
                 });
             }
@@ -327,14 +357,97 @@
                         idPoblacion: indice
                     },
                     success: function (responseText) {
-                        console.log(responseText);
                         app.$data.poblacion.individuos = JSON.parse(responseText);
                     }
                 });
             }
-
+            
+            //----------------------- GRAFICAS ---------------------------------
+            const ctx = $("#graphCromosomas");
+            var config = {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                        responsive: true,
+                        title: {
+                                display: true,
+                                text: 'Resultados'
+                        },
+                        tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                        },
+                        hover: {
+                                mode: 'nearest',
+                                intersect: true
+                        },
+                        scales: {
+                                xAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                                display: true,
+                                                labelString: 'Generaciones'
+                                        }
+                                }],
+                                yAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                                display: true,
+                                                labelString: 'Valor'
+                                        }
+                                }]
+                        }
+                }
+            };
+            
+            function updateGraph(generaciones){
+                var sumatoriasAptitud= [];
+                var promediosAptitud = [];
+                var sumatoriasVe = [];
+                var promediosVe = [];
+                var maximos = [];
+                var minimos = [];
+                var data = [];
+                generaciones.forEach(function(poblacion) {
+                    sumatoriasAptitud.push(poblacion.SumatoriaAptitud);
+                    promediosAptitud.push(poblacion.PromedioAptitud);
+                    sumatoriasVe.push(poblacion.SumatoriaVe);
+                    promediosVe.push(poblacion.PromedioVe);
+                    maximos.push(poblacion.cromosomaMax.valorReal);
+                    minimos.push(poblacion.cromosomaMin.valorReal);
+                });
+                data.push( formatoConjuntoGrafica('Maximos','#18BC9C','#18BC9C',maximos) );
+                data.push( formatoConjuntoGrafica('Maximos','#E74C3C','#E74C3C',minimos) );
+                config.data.datasets = data;
+                config.data.labels = labelsConjuntoGrafica(generaciones.length);
+                graficaResultados.update();                
+            }
+            
+            function formatoConjuntoGrafica(titulo, colorPrimario, colorSecundario, datos){
+                conjunto = {
+                    label: titulo,
+                    backgroundColor: colorPrimario,
+                    borderColor: colorSecundario,
+                    data: datos,
+                    fill: false
+                };
+                return conjunto;
+            }
+            
+            function labelsConjuntoGrafica(numGeneraciones){
+                var labels = [];
+                for(var i = 1; i <= numGeneraciones; i++){
+                    labels.push("Gen "+i);
+                }
+                return labels;
+            }
+            
             // Init()
             $("#btnEjecutarAG").click(executeAlgoritmoGenetico);
+            var graficaResultados = new Chart(ctx, config);
         </script>
     </body>
 </html>
