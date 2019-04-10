@@ -421,6 +421,7 @@
                 });
                 data.push( formatoConjuntoGrafica('Maximos','#18BC9C','#18BC9C',maximos) );
                 data.push( formatoConjuntoGrafica('Maximos','#E74C3C','#E74C3C',minimos) );
+                //data.push( formatoConjuntoGrafica('Maximos','#A34C3C','#A34C3C',promediosAptitud) );
                 config.data.datasets = data;
                 config.data.labels = labelsConjuntoGrafica(generaciones.length);
                 graficaResultados.update();                

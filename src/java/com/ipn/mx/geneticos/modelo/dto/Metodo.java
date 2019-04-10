@@ -7,6 +7,7 @@ import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.CambioBit;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Ruleta;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Seleccion;
+import com.ipn.mx.geneticos.modelo.dto.seleccion.Torneo;
 import com.ipn.mx.geneticos.utilerias.FuncCuadrado;
 import com.ipn.mx.geneticos.utilerias.Funcion;
 import com.ipn.mx.geneticos.utilerias.Rango;
@@ -131,12 +132,12 @@ public class Metodo<T extends Cromosoma> {
         int numeroGeneraciones = 4;
         Rango rango = new Rango(1, 10);
         Funcion f2 = new FuncCuadrado();
-        Seleccion<Cromosoma> ruleta = new Ruleta<>(Cromosoma.class);
+        Seleccion<Cromosoma> torneo = new Torneo<>(Cromosoma.class);
         Cruza cruzaNPuntos = new NPuntos<>(2, Cromosoma.class);
         Mutacion<Cromosoma> simple = new CambioBit<>("20",Cromosoma.class);
         Metodo<Cromosoma> ruletaBits
                 = new Metodo(numeroCromosomas, numeroGeneraciones, rango, f2,
-                        ruleta, cruzaNPuntos, simple, "01101,11000,01000,10011,10111,01111", Cromosoma.class);
+                        torneo, cruzaNPuntos, simple, "01101,11000,01000,10011,10111,01111", Cromosoma.class);
         //Definimos la longitud de la cadena
 //        ruletaBits.executeGenetico();
         ruletaBits.executeGeneticoDebug();

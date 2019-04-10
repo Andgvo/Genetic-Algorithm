@@ -5,8 +5,10 @@ import com.ipn.mx.geneticos.modelo.dto.cruza.Cruza;
 import com.ipn.mx.geneticos.modelo.dto.cruza.NPuntos;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.CambioBit;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
+import com.ipn.mx.geneticos.modelo.dto.seleccion.Jerarquia;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Seleccion;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Ruleta;
+import com.ipn.mx.geneticos.modelo.dto.seleccion.Torneo;
 
 /**
  *
@@ -21,9 +23,9 @@ public abstract class MetodoFactory {
             case "RULETA":
                 return new Ruleta(type);
             case "TORNEO":
-                return null;
+                return new Torneo(type);
             case "JERARQUICO":
-                return null;
+                return new Jerarquia(type);
             default:
                 return null;
         }
