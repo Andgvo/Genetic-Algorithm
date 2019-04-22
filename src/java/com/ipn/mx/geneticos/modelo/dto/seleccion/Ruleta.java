@@ -5,7 +5,6 @@ import com.ipn.mx.geneticos.modelo.dto.Cromosoma;
 import com.ipn.mx.geneticos.modelo.dto.ParseCromosoma;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Random;
 
@@ -65,10 +64,10 @@ public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Se
     
     private T seleccionVe(Poblacion<T> poblacion, BigDecimal r){
         T individuo = null;
-        for(Object cromosoma: poblacion){
-            individuo = (T) cromosoma;
+        for(T cromosoma: poblacion){
+            individuo = cromosoma;
             if(individuo.getProbabilidadAcumulada().doubleValue() >  r.doubleValue() )
-                return (T) instanciaDeCromosoma(individuo.getValorReal());
+                return instanciaDeCromosoma(individuo.getValorReal());
         }
         return individuo;
     }

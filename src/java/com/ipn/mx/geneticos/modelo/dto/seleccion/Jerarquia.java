@@ -26,7 +26,6 @@ public class Jerarquia <T extends Cromosoma> extends ParseCromosoma<T> implement
 
     @Override
     public Poblacion execute(Poblacion<T> padres) {
-        Poblacion<T> nuevosPadres = new Poblacion(type);
         return ruleta.execute( ordenamiento.quicksortC(padres) );
     }
     
