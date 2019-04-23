@@ -16,16 +16,16 @@ import com.ipn.mx.geneticos.modelo.dto.seleccion.Torneo;
  */
 public abstract class MetodoFactory {
 
-    public static Seleccion getSeleccion(String tipo, Class type){
+    public static Seleccion getSeleccion(String tipo, String porcentajePoblacion, String porcentajeCromosoma, Class type){
         if(null == tipo){
             return null;
         }else switch (tipo) {
             case "RULETA":
-                return new Ruleta(type);
+                return new Ruleta(porcentajeCromosoma, porcentajeCromosoma, type);
             case "TORNEO":
                 return new Torneo(type);
             case "JERARQUICO":
-                return new Jerarquia(type);
+                return new Jerarquia(porcentajePoblacion, porcentajeCromosoma, type);
             default:
                 return null;
         }

@@ -35,14 +35,14 @@
                                         <label> Tipo de Población inicial:  </label><br>
                                         <div class="form-check form-check-inline">                                        
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input form-check-input" value="BLOQUE" type="radio" id="radioBloque" name="txtAccion" checked=""  v-model="tipoPoblacionIni">
-                                                <label class="custom-control-label form-check-label" for="radioBloque">Bloque Contructor</label>
+                                                <input class="custom-control-input form-check-input" value="ALEATORIO" type="radio" id="radioAleatorio" name="txtAccion" v-model="tipoPoblacionIni">
+                                                <label class="custom-control-label form-check-label" for="radioAleatorio">Aleatorio</label>
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">                                        
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input form-check-input" value="ALEATORIO" type="radio" id="radioAleatorio" name="txtAccion" v-model="tipoPoblacionIni">
-                                                <label class="custom-control-label form-check-label" for="radioAleatorio">Aleatorio</label>
+                                                <input class="custom-control-input form-check-input" value="BLOQUE" type="radio" id="radioBloque" name="txtAccion" checked=""  v-model="tipoPoblacionIni">
+                                                <label class="custom-control-label form-check-label" for="radioBloque">Bloque Contructor</label>
                                             </div>
                                         </div>
                                     </div>
@@ -53,30 +53,31 @@
                                     <div class="row">
                                         <div class="form-group col-6 col-sm-3 col-md-4 col-lg-4">
                                             <label for="txtNumeroGeneracion">Número de generaciones:</label>
-                                            <input type="number" class="form-control" id="txtNumeroGeneracion" name="txtNumeroGeneracion" aria-describedby="emailHelp" value="4" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtNumeroGeneracion" name="txtNumeroGeneracion"  value="4" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-3 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Longitud de cromosomas:</label>
-                                            <input type="number" class="form-control" id="txtLongitud" name="txtLongitud" aria-describedby="emailHelp" value="5" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtLongitud" name="txtLongitud"  value="5" placeholder="10">
                                         </div>
+                                        <!--
                                         <div class="form-group col-6 col-sm-3 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Porcentaje de mutacion:</label>
-                                            <input type="number" class="form-control" id="txtPorcentaje" name="txtPorcentaje" aria-describedby="emailHelp" value="20" placeholder="10">
-                                        </div>       
+                                            <input type="number" class="form-control form-control-sm" id="txtPorcentaje" name="txtPorcentaje"  value="20" placeholder="10">
+                                        </div>-->
                                     </div>
                                     <!-- CONFIGURACION PARA BLOQUE -->
                                     <div v-if="tipoPoblacionIni === 'ALEATORIO'" class="row">
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Número de cromosomas:</label>
-                                            <input type="number" class="form-control" id="txtNumeroPoblacion" name="txtNumeroPoblacion" aria-describedby="emailHelp" value="10" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtNumeroPoblacion" name="txtNumeroPoblacion"  value="10" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Valor mínimo del Random:</label>
-                                            <input type="number" class="form-control" id="txtValorInicio" name="txtValorInicio" aria-describedby="emailHelp" value="1" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtValorInicio" name="txtValorInicio"  value="1" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Valor máximo del Random:</label>
-                                            <input type="number" class="form-control" id="txtValorFinal" name="txtValorFinal" aria-describedby="emailHelp" value="10" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtValorFinal" name="txtValorFinal"  value="10" placeholder="10">
                                         </div>
                                     </div>
                                     <!-- CONFIGURACION PARA ALEATORIO -->
@@ -84,7 +85,7 @@
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Tipo de Bloque: </label>
                                             <div class="input-group mb-3">
-                                                <select v-model='tipoBloque' class="custom-select" id="selTipoBloque" name="selTipoBloque">
+                                                <select v-model='tipoBloque' class="form-control" id="selTipoBloque" name="selTipoBloque">
                                                     <option value="BINARIO" selected>Binario</option>
                                                     <option value="REAL">Reales</option>
                                                 </select>
@@ -92,45 +93,80 @@
                                         </div>
                                         <div class="form-group col-12 col-sm-8 col-md-8 col-lg-8">
                                             <label for="txtBloque">Bloque de cromosomas {{tipoBloque}}</label>
-                                            <input type="text" class="form-control" id="txtBloque" name="txtBloque" aria-describedby="emailHelp" value="01101,11000,01000,10011,10111,01111" placeholder="10">
+                                            <input type="text" class="form-control form-control-sm" id="txtBloque" name="txtBloque"  value="01101,11000,01000,10011,10111,01111" placeholder="10">
                                         </div>
                                     </div>
+                                    
+                                    <!-- CONFIGURACION DE MUTACION -->
+                                    <hr>
+                                    <!-- SELECCION --> 
                                     <div class="row">
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="selSeleccion">Selección</label>
-                                                </div>
-                                                <select class="custom-select" id="selSeleccion" name="selSeleccion">
-                                                    <option value="RULETA" selected>Ruleta</option>
-                                                    <option value="TORNEO">Torneo</option>
-                                                    <option value="JERARQUICO">Jerarquia</option>
-                                                </select>
+                                            <label for="selSeleccion"> Selección: </label>                                            
+                                            <select class="form-control form-control-sm" id="selSeleccion" name="selSeleccion">
+                                                <option value="RULETA" selected>Ruleta</option>
+                                                <option value="TORNEO">Torneo</option>
+                                                <option value="JERARQUICO">Jerarquia</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeSeleccionPoblacion"> Porcentaje de población a seleccionar: </label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeSeleccionPoblacion" name="txtPorcentajeSeleccionPoblacion" value="1" min="0" max="100" placeholder="10">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="selCruza">Cruza</label>
-                                                </div>
-                                                <select class="custom-select" id="selCruza" name="selCruza">
-                                                    <option value="N_PUNTOS" selected>N Puntos</option>
-                                                    <option value="TORNEO">One</option>
-                                                    <option value="JERARQUICO">Two</option>
-                                                </select>
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeSeleccionCromosoma"> Porcentaje de cromosoma a seleccionar: </label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeSeleccionCromosoma" name="txtPorcentajeSeleccionCromosoma" value="1" min="0" max="100" placeholder="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--CRUZA -->
+                                    <div class="row">
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <label for="selCruza"> Cruza: </label>
+                                            <select class="form-control form-control-sm" id="selCruza" name="selCruza">
+                                                <option value="N_PUNTOS" selected>N Puntos</option>
+                                                <option value="TORNEO">One</option>
+                                                <option value="JERARQUICO">Two</option>
+                                            </select>                                           
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeCruzaPoblacion"> Porcentaje de población a cruzar: </label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeCruzaPoblacion" name="txtPorcentajeCruzaPoblacion" value="100" min="0" max="100" placeholder="10">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="selMutacion">Mutación</label>
-                                                </div>
-                                                <select class="custom-select" id="selMutacion" name="selMutacion">
-                                                    <option value="CAMBIO_BTI" selected>Cambio de Bit</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeCruzaCromosoma"> Porcentaje de cromosoma a cruzar: </label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeCruzaCromosoma" name="txtPorcentajeCruzaCromosoma" value="1" min="0" max="100" placeholder="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- MUTACIÓN -->
+                                    <div class="row">
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <label for="selMutacion">Mutación: </label>                                            
+                                            <select class="form-control form-control-sm" id="selMutacion" name="selMutacion">
+                                                <option value="CAMBIO_BTI" selected>Cambio de Bit</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeMutacionPoblacion">Porcentaje de población a mutar:</label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeMutacionPoblacion" name="txtPorcentajeMutacionPoblacion" value="100" min="0" max="100" placeholder="10">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="txtPorcentajeMutacionCromosoma">Porcentaje de cromosoma a mutar:</label>
+                                                <input type="number" class="form-control form-control-sm" id="txtPorcentajeMutacionCromosoma" name="txtPorcentajeMutacionCromosoma" value="20" min="0" max="100" placeholder="10">
                                             </div>
                                         </div>
                                     </div>
@@ -282,7 +318,7 @@
             var app = new Vue({
                 el: '#app',
                 data: {
-                    tipoPoblacionIni: 'BLOQUE',
+                    tipoPoblacionIni: 'ALEATORIO',
                     tipoBloque: 'BINARIO',
                     ruleta: {
                         f: 0,
@@ -378,7 +414,7 @@
                         },
                         tooltips: {
                                 mode: 'index',
-                                intersect: false,
+                                intersect: false
                         },
                         hover: {
                                 mode: 'nearest',
@@ -419,8 +455,8 @@
                     maximos.push(poblacion.cromosomaMax.valorReal);
                     minimos.push(poblacion.cromosomaMin.valorReal);
                 });
-                data.push( formatoConjuntoGrafica('Maximos','#18BC9C','#18BC9C',maximos) );
-                data.push( formatoConjuntoGrafica('Maximos','#E74C3C','#E74C3C',minimos) );
+                data.push( formatoConjuntoGrafica('Máximos','#18BC9C','#18BC9C',maximos) );
+                data.push( formatoConjuntoGrafica('Mínimos','#E74C3C','#E74C3C',minimos) );
                 //data.push( formatoConjuntoGrafica('Maximos','#A34C3C','#A34C3C',promediosAptitud) );
                 config.data.datasets = data;
                 config.data.labels = labelsConjuntoGrafica(generaciones.length);

@@ -1,7 +1,5 @@
 package com.ipn.mx.geneticos.servlet.tecnica;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.ipn.mx.geneticos.modelo.dao.RuletaDAO;
 import com.ipn.mx.geneticos.modelo.dto.Cromosoma;
 import com.ipn.mx.geneticos.modelo.dto.JsonPoblacion;
@@ -21,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 public class AlgoritmosGeneticosServlet extends HttpServlet {
 
     private final RuletaDAO dao = new RuletaDAO(Cromosoma.class);
-    private final Gson gson = new GsonBuilder().create();
     
     private List<Poblacion<Cromosoma>> generaciones;
     private List<JsonPoblacion> lista;
@@ -29,19 +26,20 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private String accion;
     private int numeroGeneraciones;
     private int longitudCromosoma;
-    private String porcentajeMutacion;
     private String seleccion;
+    private String porcentajeSeleccionPoblacion;
+    private String porcentajeSeleccionCromosoma;
     private String cruza;
+    private String porcentajeCruzaPoblacion;
+    private String porcentajeCruzaCromosoma;
     private String mutacion;
+    private String porcentajeMutacionPoblacion;
+    private String porcentajeMutacionCromosoma;
     
     //Variables para población bloques Constructores
     private String tipoBloque;
     private String bloque;
     
-    //Variables para población Aleatorio
-    private int numeroCromosomas;
-    private int valorMinRandom;
-    private int valorMaxRandom;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,10 +64,19 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
                 //VALORES PARA GENERAR EL METODO
                 numeroGeneraciones = Integer.parseInt(request.getParameter("txtNumeroGeneracion"));
                 longitudCromosoma = Integer.parseInt(request.getParameter("txtLongitud"));
-                porcentajeMutacion = request.getParameter("txtPorcentaje");
+                porcentajeMutacionCromosoma = request.getParameter("txtPorcentajeMutacionCromosoma");
+                //Seleccion
                 seleccion = request.getParameter("selSeleccion");
+                porcentajeSeleccionPoblacion = request.getParameter("txtPorcentajeSeleccionPoblacion");
+                porcentajeSeleccionCromosoma = request.getParameter("txtPorcentajeSeleccionCromosoma");
+                //Cruza
                 cruza = request.getParameter("selCruza");
-                mutacion = request.getParameter("selMutacion");        
+                porcentajeCruzaPoblacion = request.getParameter("txtPorcentajeCruzaPoblacion");
+                porcentajeCruzaCromosoma = request.getParameter("txtPorcentajeCruzaCromosoma");
+                //Mutacion
+                mutacion = request.getParameter("selMutacion");
+                porcentajeMutacionPoblacion = request.getParameter("txtPorcentajeMutacionPoblacion");
+                porcentajeMutacionCromosoma = request.getParameter("txtPorcentajeMutacionCromosoma");
                 switch (accion) {
                     case "BLOQUE":
                         executeAlgoritmoGenetico(request, out);
@@ -90,8 +97,10 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
         switch(tipoBloque){
             case "BINARIO":
                 generaciones = 
-                    dao.executeAG(numeroGeneraciones, longitudCromosoma, 
-                        porcentajeMutacion, bloque, seleccion,cruza, mutacion);
+                    dao.executeAG(numeroGeneraciones, longitudCromosoma, bloque,
+                        seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
+                        cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
+                        mutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma);
                 break;
             case "REAL":
                 break;   

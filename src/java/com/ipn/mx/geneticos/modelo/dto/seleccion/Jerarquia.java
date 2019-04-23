@@ -19,9 +19,9 @@ public class Jerarquia <T extends Cromosoma> extends ParseCromosoma<T> implement
     private final Ruleta<T> ruleta;
     private final QuicksortC<T> ordenamiento = new QuicksortC<>();
     
-    public Jerarquia(Class<T> type) {
+    public Jerarquia(String porcentajePoblacion, String porcentajeCromosoma, Class<T> type) {
         super(type);
-        ruleta = new Ruleta(type);
+        ruleta = new Ruleta(porcentajePoblacion, porcentajeCromosoma, type);
     }
 
     @Override

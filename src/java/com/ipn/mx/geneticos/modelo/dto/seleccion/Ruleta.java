@@ -16,9 +16,13 @@ import java.util.Random;
 public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Seleccion<T>{
 
     private static final BigDecimal CIEN = new BigDecimal(100);
+    private final BigDecimal porcentajePoblacion;
+    private final BigDecimal porcentajeCromosoma;
     
-    public Ruleta(Class<T> type) {
+    public Ruleta( String porcentajePoblacion, String porcentajeCromosoma, Class<T> type ) {
         super(type);
+        this.porcentajePoblacion = new BigDecimal(porcentajePoblacion);
+        this.porcentajeCromosoma = new BigDecimal(porcentajeCromosoma);
     }
 
     @Override

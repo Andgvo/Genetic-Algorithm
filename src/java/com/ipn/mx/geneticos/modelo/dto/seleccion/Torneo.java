@@ -5,10 +5,8 @@ import com.ipn.mx.geneticos.modelo.dto.Cromosoma;
 import com.ipn.mx.geneticos.modelo.dto.ParseCromosoma;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import com.ipn.mx.geneticos.utilerias.RandomC;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -17,7 +15,7 @@ import java.util.Random;
  */
 public class Torneo<T extends Cromosoma> extends ParseCromosoma<T> implements Seleccion<T>{
 
-    private final RandomC random = new RandomC();
+    private static final RandomC RANDOM = new RandomC();
     
     public Torneo(Class<T> type) {
         super(type);
@@ -38,7 +36,7 @@ public class Torneo<T extends Cromosoma> extends ParseCromosoma<T> implements Se
         T competidor1;
         T competidor2;
         List<T> ganadores = new ArrayList<>();
-        List<Integer> competidores = random.desordenar(0, padres.size(), padres.size());
+        List<Integer> competidores = RANDOM.desordenar(0, padres.size(), padres.size());
         int veces = padres.size() /2 ;
         for(int i =0; i < veces; i++){
             competidor1 = instanciaDeCromosoma( padres.get( competidores.get(i) ).getValorReal() );
