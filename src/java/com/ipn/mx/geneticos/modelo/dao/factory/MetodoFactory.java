@@ -21,9 +21,9 @@ public abstract class MetodoFactory {
             return null;
         }else switch (tipo) {
             case "RULETA":
-                return new Ruleta(porcentajeCromosoma, porcentajeCromosoma, type);
+                return new Ruleta(porcentajePoblacion, porcentajeCromosoma, type);
             case "TORNEO":
-                return new Torneo(type);
+                return new Torneo(porcentajePoblacion, porcentajeCromosoma, type);
             case "JERARQUICO":
                 return new Jerarquia(porcentajePoblacion, porcentajeCromosoma, type);
             default:
@@ -31,7 +31,7 @@ public abstract class MetodoFactory {
         }
     }
     
-    public static Cruza getCruza(String tipo, int puntos, Class type){
+    public static Cruza getCruza(String tipo, String porcentajePoblacion, String porcentajeCromosoma, int puntos, Class type){
         if(tipo == null){
             return null;
         }else switch(tipo){
@@ -42,12 +42,12 @@ public abstract class MetodoFactory {
         }
     }
     
-    public static Mutacion getMutacion(String tipo, String porcentaje, Class type){
+    public static Mutacion getMutacion(String tipo, String porcentajePoblacion, String porcentajeCromosoma, Class type){
         if(tipo == null){
             return null;
         }else switch(tipo){
             case "CAMBIO_BTI":
-                return new CambioBit(porcentaje, type);
+                return new CambioBit(porcentajeCromosoma, type);
             default:
                 return null;
         }

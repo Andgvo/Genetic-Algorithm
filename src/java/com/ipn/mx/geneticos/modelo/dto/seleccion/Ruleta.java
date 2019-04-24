@@ -41,16 +41,6 @@ public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Se
         return nuevosPadres;
     }
     
-    private T seleccion(Poblacion<T> poblacion, BigDecimal r){
-        T individuo = null;
-        for(Object cromosoma: poblacion){
-            individuo = (T) cromosoma;
-            if(individuo.getProbabilidadAcumulada().doubleValue() >  r.doubleValue() )
-                return (T) instanciaDeCromosoma(individuo.getValorReal());
-        }
-        return individuo;
-    }
-    
     public Poblacion executeVe(Poblacion<T> padres) {
         //Se multiplica por 100 para posteriormente obtener decimales
         int sumatoriaVe = (int) (padres.getSumatoriaVe().doubleValue() * 100.0);
@@ -60,19 +50,20 @@ public class Ruleta<T extends Cromosoma> extends ParseCromosoma<T> implements Se
         for(int i = 0; i < padres.size() ; i++){
             numeroRandom = new BigDecimal( new Random().nextInt( sumatoriaVe ) );
             r = numeroRandom.divide( CIEN  , 2, RoundingMode.HALF_UP );
-            T individuo = seleccionVe(padres, r);
+            T individuo = seleccion(padres, r);
             nuevosPadres.add(individuo);
         }
         return nuevosPadres;
     }
     
-    private T seleccionVe(Poblacion<T> poblacion, BigDecimal r){
+    private T seleccion(Poblacion<T> poblacion, BigDecimal r){
         T individuo = null;
-        for(T cromosoma: poblacion){
-            individuo = cromosoma;
+        for(Object cromosoma: poblacion){
+            individuo = (T) cromosoma;
             if(individuo.getProbabilidadAcumulada().doubleValue() >  r.doubleValue() )
-                return instanciaDeCromosoma(individuo.getValorReal());
+                return (T) instanciaDeCromosoma(individuo.getValorReal());
         }
         return individuo;
     }
+
 }

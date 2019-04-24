@@ -17,7 +17,7 @@ public class Torneo<T extends Cromosoma> extends ParseCromosoma<T> implements Se
 
     private static final RandomC RANDOM = new RandomC();
     
-    public Torneo(Class<T> type) {
+    public Torneo(String porcentajePoblacion, String porcentajeCromosoma,Class<T> type) {
         super(type);
     }
 

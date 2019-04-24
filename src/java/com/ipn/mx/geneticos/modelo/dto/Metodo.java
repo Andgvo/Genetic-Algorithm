@@ -2,16 +2,11 @@ package com.ipn.mx.geneticos.modelo.dto;
 
 import com.ipn.mx.geneticos.modelo.dao.factory.MetodoFactory;
 import com.ipn.mx.geneticos.modelo.dto.cruza.Cruza;
-import com.ipn.mx.geneticos.modelo.dto.cruza.NPuntos;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
-import com.ipn.mx.geneticos.modelo.dto.mutacion.CambioBit;
-import com.ipn.mx.geneticos.modelo.dto.seleccion.Ruleta;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Seleccion;
-import com.ipn.mx.geneticos.modelo.dto.seleccion.Torneo;
 import com.ipn.mx.geneticos.utilerias.FuncCuadrado;
 import com.ipn.mx.geneticos.utilerias.Funcion;
 import com.ipn.mx.geneticos.utilerias.Rango;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +23,6 @@ public class Metodo<T extends Cromosoma> {
     private final Cruza cruza;
     private final Mutacion tipoMutacion;
     private final List<Poblacion<T>> generaciones;
-    
     private Poblacion<T> padres;
     private Poblacion<T> padresSeleccionados;
     private Poblacion<T> hijos;
@@ -39,13 +33,13 @@ public class Metodo<T extends Cromosoma> {
             String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
             String cruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
             String mutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma,
-            Class tipoIndividuo) {
+            Class tipoIndividuo ) {
         this.numeroGeneraciones = numeroGeneraciones;
         Cromosoma.longitud = longitudCromosoma;
         this.funcion = funcion;
-        this.metodoSeleccion = MetodoFactory.getSeleccion(seleccion, "5","10", tipoIndividuo);
-        this.cruza = MetodoFactory.getCruza(cruza, 2, tipoIndividuo);
-        this.tipoMutacion = MetodoFactory.getMutacion(mutacion, porcentajeMutacionCromosoma, tipoIndividuo);
+        this.metodoSeleccion = MetodoFactory.getSeleccion(seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma, tipoIndividuo);
+        this.cruza = MetodoFactory.getCruza(cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, 2, tipoIndividuo);
+        this.tipoMutacion = MetodoFactory.getMutacion(mutacion, porcentajeMutacionPoblacion ,porcentajeMutacionCromosoma, tipoIndividuo);
         this.padres = Poblacion.parseToCromosoma(
                 bloque, tipoIndividuo);
         generaciones = new ArrayList<>();
@@ -84,9 +78,6 @@ public class Metodo<T extends Cromosoma> {
             padres = hijos;
             System.out.println("\n---------------------------------------\n\n");
         }
-        System.out.println(generaciones.get(0));
-        System.out.println(generaciones.get(1));
-        System.out.println(generaciones.get(2));
     }
 
     public List<Poblacion<T>> getGeneraciones() {
@@ -98,21 +89,33 @@ public class Metodo<T extends Cromosoma> {
     }
     
     public static void main(String[] args) {
-        BigDecimal numeroCromosomas = new BigDecimal(6);
         Cromosoma.longitud = 5;
-        int numeroGeneraciones = 4;
+        
         Rango rango = new Rango(1, 10);
         Funcion f2 = new FuncCuadrado();
-        Seleccion<Cromosoma> torneo = new Torneo<>(Cromosoma.class);
-        Cruza cruzaNPuntos = new NPuntos<>(2, Cromosoma.class);
-        Mutacion<Cromosoma> simple = new CambioBit<>("20",Cromosoma.class);
-//        Metodo<Cromosoma> ruletaBits
-//                = new Metodo();
-//        ruletaBits.executeGeneticoDebug();
         
-        //Definimos la longitud de la cadena
-//        ruletaBits.executeGenetico();
+        //Prueba de algoritmo
+        int numeroGeneraciones = 1;
+        int longitudCromosoma = 4;
+        String bloque = "01101,11000,01000,10011,10111,01111";
+        String seleccion = "JERARQUICO";
+        String porcentajeSeleccionPoblacion = "100";
+        String porcentajeSeleccionCromosoma = "10";
+        String cruza = "N_PUNTOS";
+        String porcentajeCruzaPoblacion = "100";
+        String porcentajeCruzaCromosoma = "3";
+        String mutacion = "CAMBIO_BTI";
+        String porcentajeMutacionPoblacion = "100";
+        String porcentajeMutacionCromosoma = "20";
         
-        //mr.execute();
+        Metodo<Cromosoma> metodo = new Metodo<>
+            ( numeroGeneraciones, longitudCromosoma, bloque, f2, 
+                seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma, 
+                cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, 
+                mutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
+                Cromosoma.class
+            );
+        metodo.executeGeneticoDebug();
+        
     }
 }

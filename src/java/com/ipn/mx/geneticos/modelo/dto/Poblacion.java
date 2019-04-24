@@ -141,6 +141,14 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
         promedioVe = sumatoriaVe.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
     }
     
+    public void setAcumulacionValoresEsperados(){
+        this.stream().forEachOrdered((individuo) -> {
+            sumatoriaVe = sumatoriaVe.add(individuo.getValorEsperado());
+            individuo.setProbabilidadAcumulada(sumatoriaVe);
+        });
+        promedioVe = sumatoriaVe.divide(numeroIndividuos, 2, RoundingMode.HALF_UP );
+    }
+    
     private void comparaMinMax(T prospecto){
         if(cromosomaMax.getAptitud().subtract(prospecto.getAptitud()).doubleValue() < 0){
             cromosomaMax = prospecto;

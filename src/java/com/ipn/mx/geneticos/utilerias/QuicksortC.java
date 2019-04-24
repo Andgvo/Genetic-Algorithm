@@ -187,6 +187,42 @@ public class QuicksortC<T extends Cromosoma> {
         return arrayResult;
     }
     
+    public Poblacion<T> quicksortAptitud( Poblacion<T> array, Class<T> type ) {
+        Poblacion<T> arrayResult = new Poblacion(Cromosoma.class);
+        int tam = array.size();
+        if (tam != 0) {
+            int pibote;
+            //Saber si el arreglo es par o impar, para elegir el pibote en medio
+            if ((tam % 2) != 0) {
+                pibote = (int) (Math.ceil((double) tam / 2) - 1);
+            } else {
+                pibote = (int) (Math.floor((double) tam / 2) - 1);
+            }
+            Poblacion<T> arrIzq = new Poblacion(type);
+            Poblacion<T> arrDer = new Poblacion(type);
+            
+            T cromosomaPibote = array.remove(pibote);
+            
+            for(T cromosoma: array){
+                if ( cromosomaPibote.getAptitud().doubleValue() >= cromosoma.getAptitud().doubleValue() ) {
+                    arrIzq.add(cromosoma);
+                } else {
+                    arrDer.add(cromosoma);
+                }
+            }
+            
+            //Se una la parte izquierda y derecha ordenadas junto con el pibote
+            arrIzq = quicksortAptitud( arrIzq, type );
+            arrDer = quicksortAptitud( arrDer, type );
+            
+            //arrayAux = [ array[pibote] ]
+            arrayResult.addAll(arrIzq);
+            arrayResult.add( cromosomaPibote );
+            arrayResult.addAll(arrDer);
+        }
+        return arrayResult;
+    }
+    
     public void cambio(Poblacion<T> array, int izq, int der) {
         T aux = array.get(der);
         array.set(der, array.get(izq));
