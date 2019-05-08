@@ -28,7 +28,7 @@ public class Pruebas {
         LamdaFunction helloWord = () -> System.out.println("Hola mundo");
         helloWord.call();
         System.out.println("*************************************************");
-        List lista = new ArrayList();
+        List<Integer> lista = new ArrayList();
         lista.add(0);
         lista.add(1);
         lista.add(2);
@@ -38,6 +38,13 @@ public class Pruebas {
         System.out.println(lista);
         System.out.println("*************************************************");
         lista.remove(2);
+        System.out.println(lista);
+        System.out.println("**********************************************+");
+        System.out.println(lista.subList(0, 0));
+        System.out.println(lista.subList(0, lista.size()));
+        System.out.println("**********************************************+");
+        int aux = lista.remove(3);
+        lista.add(1,aux);
         System.out.println(lista);
     }
 }

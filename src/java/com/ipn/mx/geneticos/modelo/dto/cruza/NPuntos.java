@@ -27,7 +27,7 @@ public class NPuntos<T extends Cromosoma> extends ParseCromosoma<T> implements C
     public void cruzar(Poblacion<T> descendientes, T cromosoma1, T cromosoma2) {
         if(Cromosoma.longitud > puntos){
             //Forzamos a que el random genere numeros excluyendo inicio y final
-            List<Integer> cortes = RANDOM.cortesRandom(1, Cromosoma.longitud - 1 , puntos);
+            List<Integer> cortes = RANDOM.cortesRandom(1, Cromosoma.longitud, puntos);
             cortes.add(0,0);                    //Se agrega el inicio de la cadena
             cortes.add(Cromosoma.longitud );    //Se agrega el final de la cadena
             cadenaHijo1 = new ArrayList<>();
@@ -49,7 +49,7 @@ public class NPuntos<T extends Cromosoma> extends ParseCromosoma<T> implements C
             descendientes.add( instanciaDeCromosoma( cadenaHijo2 ) );
         }
     }
-
+    
     @Override
     public Poblacion<T> cruzarPoblacion(Poblacion<T> poblacion) {
         Poblacion<T> descendientes = new Poblacion<>(type);

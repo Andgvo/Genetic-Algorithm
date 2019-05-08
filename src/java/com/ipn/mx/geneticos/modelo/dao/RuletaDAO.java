@@ -24,13 +24,13 @@ public class RuletaDAO<T extends Cromosoma> {
     public List<Poblacion<Cromosoma>> executeAG(
             int numeroGeneraciones, int longitudCromosoma, String bloque,
             String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
-            String cruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
-            String mutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma) {
+            String cruza, int puntosCruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
+            String mutacion, int numElementosMutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma) {
         metodo = new Metodo(
             numeroGeneraciones, longitudCromosoma, bloque, funcion,
                 seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
-                cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
-                mutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
+                cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
+                mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
                 tipoIndividuo);
         return metodo.executeGenetico();
     }

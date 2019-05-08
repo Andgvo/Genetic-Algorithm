@@ -4,6 +4,8 @@ package com.ipn.mx.geneticos.modelo.dao.factory;
 import com.ipn.mx.geneticos.modelo.dto.cruza.Cruza;
 import com.ipn.mx.geneticos.modelo.dto.cruza.NPuntos;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.CambioBit;
+import com.ipn.mx.geneticos.modelo.dto.mutacion.Desplazamiento;
+import com.ipn.mx.geneticos.modelo.dto.mutacion.Intercambio;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Mutacion;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Jerarquia;
 import com.ipn.mx.geneticos.modelo.dto.seleccion.Seleccion;
@@ -42,12 +44,16 @@ public abstract class MetodoFactory {
         }
     }
     
-    public static Mutacion getMutacion(String tipo, String porcentajePoblacion, String porcentajeCromosoma, Class type){
+    public static Mutacion getMutacion(String tipo, int numElementos, String porcentajePoblacion, String porcentajeCromosoma, Class type){
         if(tipo == null){
             return null;
         }else switch(tipo){
             case "CAMBIO_BTI":
                 return new CambioBit(porcentajeCromosoma, type);
+            case "DESPLAZAMIENTO":
+                return new Desplazamiento(numElementos, type);
+            case "INTERCAMBIO":
+                return new Intercambio(numElementos, type);
             default:
                 return null;
         }

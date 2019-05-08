@@ -25,7 +25,7 @@ public class CambioBit<T extends Cromosoma> extends ParseCromosoma<T> implements
         //Pasando cantidad a porcentaje dividiendo entre 100
         porcentaje = new BigDecimal(porcentajeSting).movePointLeft(2);
         //Equivalente en porcentaje
-        porcentaje =  porcentaje.multiply(new BigDecimal(Cromosoma.longitud));
+        porcentaje = porcentaje.multiply(new BigDecimal(Cromosoma.longitud));
     }
 
     @Override

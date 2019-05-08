@@ -31,15 +31,15 @@ public class Metodo<T extends Cromosoma> {
     public Metodo( int numeroGeneraciones, int longitudCromosoma,
             String bloque, Funcion funcion,
             String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
-            String cruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
-            String mutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma,
+            String cruza, int puntosCruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
+            String mutacion, int numElementosMutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma,
             Class tipoIndividuo ) {
         this.numeroGeneraciones = numeroGeneraciones;
         Cromosoma.longitud = longitudCromosoma;
         this.funcion = funcion;
         this.metodoSeleccion = MetodoFactory.getSeleccion(seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma, tipoIndividuo);
-        this.cruza = MetodoFactory.getCruza(cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, 2, tipoIndividuo);
-        this.tipoMutacion = MetodoFactory.getMutacion(mutacion, porcentajeMutacionPoblacion ,porcentajeMutacionCromosoma, tipoIndividuo);
+        this.cruza = MetodoFactory.getCruza(cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, puntosCruza, tipoIndividuo);
+        this.tipoMutacion = MetodoFactory.getMutacion(mutacion, numElementosMutacion,porcentajeMutacionPoblacion ,porcentajeMutacionCromosoma, tipoIndividuo);
         this.padres = Poblacion.parseToCromosoma(
                 bloque, tipoIndividuo);
         generaciones = new ArrayList<>();
@@ -95,27 +95,28 @@ public class Metodo<T extends Cromosoma> {
         Funcion f2 = new FuncCuadrado();
         
         //Prueba de algoritmo
-        int numeroGeneraciones = 1;
-        int longitudCromosoma = 4;
+        int numeroGeneraciones = 3;
+        int longitudCromosoma = 5;
         String bloque = "01101,11000,01000,10011,10111,01111";
-        String seleccion = "JERARQUICO";
+        String seleccion = "RULETA";
         String porcentajeSeleccionPoblacion = "100";
         String porcentajeSeleccionCromosoma = "10";
         String cruza = "N_PUNTOS";
+        int puntosCruza = 2;
         String porcentajeCruzaPoblacion = "100";
         String porcentajeCruzaCromosoma = "3";
-        String mutacion = "CAMBIO_BTI";
+        String mutacion = "DESPLAZAMIENTO";
+        int numElementosMutacion = 3;
         String porcentajeMutacionPoblacion = "100";
         String porcentajeMutacionCromosoma = "20";
         
         Metodo<Cromosoma> metodo = new Metodo<>
             ( numeroGeneraciones, longitudCromosoma, bloque, f2, 
                 seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma, 
-                cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, 
-                mutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
+                cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, 
+                mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
                 Cromosoma.class
             );
         metodo.executeGeneticoDebug();
-        
     }
 }

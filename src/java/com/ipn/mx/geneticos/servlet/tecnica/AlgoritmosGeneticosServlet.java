@@ -30,9 +30,11 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private String porcentajeSeleccionPoblacion;
     private String porcentajeSeleccionCromosoma;
     private String cruza;
+    private int puntosCruza;
     private String porcentajeCruzaPoblacion;
     private String porcentajeCruzaCromosoma;
     private String mutacion;
+    private int numElementosMutacion;
     private String porcentajeMutacionPoblacion;
     private String porcentajeMutacionCromosoma;
     
@@ -71,10 +73,12 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
                 porcentajeSeleccionCromosoma = request.getParameter("txtPorcentajeSeleccionCromosoma");
                 //Cruza
                 cruza = request.getParameter("selCruza");
+                puntosCruza = Integer.parseInt(request.getParameter("txtPuntosCruza"));
                 porcentajeCruzaPoblacion = request.getParameter("txtPorcentajeCruzaPoblacion");
                 porcentajeCruzaCromosoma = request.getParameter("txtPorcentajeCruzaCromosoma");
                 //Mutacion
                 mutacion = request.getParameter("selMutacion");
+                numElementosMutacion = Integer.parseInt(request.getParameter("txtNumElementosMutacion"));
                 porcentajeMutacionPoblacion = request.getParameter("txtPorcentajeMutacionPoblacion");
                 porcentajeMutacionCromosoma = request.getParameter("txtPorcentajeMutacionCromosoma");
                 switch (accion) {
@@ -99,15 +103,14 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
                 generaciones = 
                     dao.executeAG(numeroGeneraciones, longitudCromosoma, bloque,
                         seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
-                        cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
-                        mutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma);
+                        cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
+                        mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma);
                 break;
             case "REAL":
                 break;   
             default:
                 break;
         }
-        System.out.println(generaciones.get(0).toString());
         out.print( generaciones.toString() );
     }
     
@@ -157,6 +160,9 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private void getPoblacion(HttpServletRequest request, PrintWriter out) {
         int idPoblacion = Integer.parseInt(request.getParameter("idPoblacion"));
         if(generaciones != null){
+            System.out.println("===============>");
+            System.out.println("size: "+generaciones.get(idPoblacion).size());
+            System.out.println(generaciones.get(idPoblacion).individuosToJSON());
             out.println(generaciones.get(idPoblacion).individuosToJSON());
         }else{
             out.println("ERROR POBLACION");

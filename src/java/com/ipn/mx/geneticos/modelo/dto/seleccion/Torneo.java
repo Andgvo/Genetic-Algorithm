@@ -27,7 +27,6 @@ public class Torneo<T extends Cromosoma> extends ParseCromosoma<T> implements Se
         //Como siempre son pares por eso se repite dos veces el torneo
         for(int i = 0; i != 2 ; i++){
             nuevosPadres.addAll(seleccion(padres));
-            
         }
         return nuevosPadres;
     }

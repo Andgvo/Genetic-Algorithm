@@ -45,10 +45,12 @@ public class Jerarquia <T extends Cromosoma> extends ParseCromosoma<T> implement
         diferencia = maximo.subtract(minimo);
         //Se calcula el divisor (N - 1)
         divisor = new BigDecimal( padres.size()-1 );
-        padres = ordenamiento.quicksortAptitud(padres, type);
-        calValoresEsperados(padres);
-        padres.setAcumulacionValoresEsperados();
-        return ruleta.execute( padres );
+        Poblacion<T> nuevosPadres = new Poblacion(type);
+        nuevosPadres.addAll(padres);
+        nuevosPadres = ordenamiento.quicksortAptitud(nuevosPadres, type);
+        calValoresEsperados(nuevosPadres);
+        nuevosPadres.setAcumulacionValoresEsperados();
+        return ruleta.execute( nuevosPadres );
     }
     
     private Poblacion<T> calValoresEsperados(Poblacion<T> padres){
