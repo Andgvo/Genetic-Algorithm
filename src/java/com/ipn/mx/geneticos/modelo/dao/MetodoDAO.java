@@ -12,17 +12,31 @@ import java.util.List;
  * @author Andres
  * @param <T extends Cromosoma>
  */
-public class RuletaDAO<T extends Cromosoma> {
+public class MetodoDAO<T extends Cromosoma> {
     private final Class tipoIndividuo;
     private Metodo metodo;
     private Funcion funcion = new FuncCuadrado();
     
-    public RuletaDAO(Class tipoIndividuo){
+    public MetodoDAO(Class tipoIndividuo){
         this.tipoIndividuo = tipoIndividuo;
     }
     
     public List<Poblacion<Cromosoma>> executeAG(
             int numeroGeneraciones, int longitudCromosoma, String bloque,
+            String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
+            String cruza, int puntosCruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
+            String mutacion, int numElementosMutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma) {
+        metodo = new Metodo(
+            numeroGeneraciones, longitudCromosoma, bloque, funcion,
+                seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
+                cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
+                mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
+                tipoIndividuo);
+        return metodo.executeGenetico();
+    }
+    
+    public List<Poblacion<Cromosoma>> executeAG(
+            int numeroGeneraciones, int longitudCromosoma, int noPoblacion,
             String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
             String cruza, int puntosCruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
             String mutacion, int numElementosMutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma) {

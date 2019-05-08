@@ -18,7 +18,6 @@ public class Intercambio <T extends Cromosoma> extends ParseCromosoma<T> impleme
     private Poblacion<T> hijos;
     private T individuo;
     private List<Integer> indices;
-    private List<Integer> posicion;
     
     public Intercambio(int numElementos, Class<T> type) {
         super(type);
@@ -27,17 +26,13 @@ public class Intercambio <T extends Cromosoma> extends ParseCromosoma<T> impleme
 
     @Override
     public T mutar( T cromosoma ) {
-        indices = RANDOM.cortesRandom(0, Cromosoma.longitud-1, numElementos );
-        posicion = RANDOM.cortesRandom(0, Cromosoma.longitud-1, numElementos );
-        System.out.println(indices);
-        System.out.println(posicion);
-        System.out.println(cromosoma.getCadenaBinaria());
-        for(int i = 0; i < indices.size(); i++){
-            byte alelo = cromosoma.getCadenaBinaria().get( indices.get(i) );
-            cromosoma.getCadenaBinaria().add(posicion.get(i), alelo);
-            cromosoma.getCadenaBinaria().remove( indices.get(i) + 1);
+        indices = RANDOM.cortesRandomDesorden(0, Cromosoma.longitud-1, numElementos );
+        for(int i = 0; i < numElementos ; i+=2){
+            byte alelo1 = cromosoma.getCadenaBinaria().get( indices.get(i) );
+            byte alelo2 = cromosoma.getCadenaBinaria().get( indices.get(i+1) );
+            cromosoma.getCadenaBinaria().set( indices.get(i), alelo2 );
+            cromosoma.getCadenaBinaria().set( indices.get(i+1), alelo1 );
         }
-        System.out.println(cromosoma.getCadenaBinaria());
         individuo = instanciaDeCromosoma(cromosoma.getCadenaBinaria());
         return individuo;
     }

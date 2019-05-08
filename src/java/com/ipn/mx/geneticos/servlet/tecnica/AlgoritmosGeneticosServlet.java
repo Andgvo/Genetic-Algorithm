@@ -1,8 +1,7 @@
 package com.ipn.mx.geneticos.servlet.tecnica;
 
-import com.ipn.mx.geneticos.modelo.dao.RuletaDAO;
+import com.ipn.mx.geneticos.modelo.dao.MetodoDAO;
 import com.ipn.mx.geneticos.modelo.dto.Cromosoma;
-import com.ipn.mx.geneticos.modelo.dto.JsonPoblacion;
 import com.ipn.mx.geneticos.modelo.dto.Poblacion;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,10 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AlgoritmosGeneticosServlet extends HttpServlet {
 
-    private final RuletaDAO dao = new RuletaDAO(Cromosoma.class);
+    private final MetodoDAO dao = new MetodoDAO(Cromosoma.class);
     
     private List<Poblacion<Cromosoma>> generaciones;
-    private List<JsonPoblacion> lista;
     
     private String accion;
     private int numeroGeneraciones;
@@ -160,9 +158,6 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private void getPoblacion(HttpServletRequest request, PrintWriter out) {
         int idPoblacion = Integer.parseInt(request.getParameter("idPoblacion"));
         if(generaciones != null){
-            System.out.println("===============>");
-            System.out.println("size: "+generaciones.get(idPoblacion).size());
-            System.out.println(generaciones.get(idPoblacion).individuosToJSON());
             out.println(generaciones.get(idPoblacion).individuosToJSON());
         }else{
             out.println("ERROR POBLACION");

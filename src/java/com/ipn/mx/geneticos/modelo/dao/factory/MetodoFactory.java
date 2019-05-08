@@ -3,6 +3,7 @@ package com.ipn.mx.geneticos.modelo.dao.factory;
 
 import com.ipn.mx.geneticos.modelo.dto.cruza.Cruza;
 import com.ipn.mx.geneticos.modelo.dto.cruza.NPuntos;
+import com.ipn.mx.geneticos.modelo.dto.cruza.Uniforme;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.CambioBit;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Desplazamiento;
 import com.ipn.mx.geneticos.modelo.dto.mutacion.Intercambio;
@@ -39,6 +40,8 @@ public abstract class MetodoFactory {
         }else switch(tipo){
             case "N_PUNTOS":
                 return new NPuntos(puntos,type);
+            case "UNIFORME":
+                return new Uniforme(puntos,type);
             default:
                 return null;
         }

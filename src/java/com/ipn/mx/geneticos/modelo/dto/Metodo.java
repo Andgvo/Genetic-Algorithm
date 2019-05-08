@@ -101,12 +101,12 @@ public class Metodo<T extends Cromosoma> {
         String seleccion = "RULETA";
         String porcentajeSeleccionPoblacion = "100";
         String porcentajeSeleccionCromosoma = "10";
-        String cruza = "N_PUNTOS";
+        String cruza = "UNIFORME";
         int puntosCruza = 2;
         String porcentajeCruzaPoblacion = "100";
         String porcentajeCruzaCromosoma = "3";
-        String mutacion = "DESPLAZAMIENTO";
-        int numElementosMutacion = 3;
+        String mutacion = "INTERCAMBIO";
+        int numElementosMutacion = 4;
         String porcentajeMutacionPoblacion = "100";
         String porcentajeMutacionCromosoma = "20";
         

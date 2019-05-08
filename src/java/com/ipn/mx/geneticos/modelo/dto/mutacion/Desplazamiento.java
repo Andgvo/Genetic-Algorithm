@@ -30,15 +30,11 @@ public class Desplazamiento<T extends Cromosoma> extends ParseCromosoma<T> imple
     public T mutar( T cromosoma ) {
         indices = RANDOM.cortesRandom(0, Cromosoma.longitud-1, numElementos );
         posicion = RANDOM.cortesRandom(0, Cromosoma.longitud-1, numElementos );
-        System.out.println(indices);
-        System.out.println(posicion);
-        System.out.println(cromosoma.getCadenaBinaria());
         for(int i = 0; i < indices.size(); i++){
             byte alelo = cromosoma.getCadenaBinaria().get( indices.get(i) );
             cromosoma.getCadenaBinaria().add(posicion.get(i), alelo);
             cromosoma.getCadenaBinaria().remove( indices.get(i) + 1);
         }
-        System.out.println(cromosoma.getCadenaBinaria());
         individuo = instanciaDeCromosoma(cromosoma.getCadenaBinaria());
         return individuo;
     }

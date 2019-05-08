@@ -124,7 +124,7 @@
                                             <label for="selCruza"> Cruza: </label>
                                             <select class="form-control form-control-sm" id="selCruza" name="selCruza">
                                                 <option value="N_PUNTOS" selected>N Puntos</option>
-                                                <option value="N_PUNTOS">Uniforme</option>
+                                                <option value="UNIFORME">Uniforme</option>
                                                 <option value="JERARQUICO">Heurística</option>
                                             </select>                                           
                                         </div>
