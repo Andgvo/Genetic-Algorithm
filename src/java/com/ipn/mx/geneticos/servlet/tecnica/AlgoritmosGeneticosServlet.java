@@ -24,6 +24,9 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     private String accion;
     private int numeroGeneraciones;
     private int longitudCromosoma;
+    private int noCromosomas;
+    private int min;
+    private int max;
     private String seleccion;
     private String porcentajeSeleccionPoblacion;
     private String porcentajeSeleccionCromosoma;
@@ -113,7 +116,16 @@ public class AlgoritmosGeneticosServlet extends HttpServlet {
     }
     
     private void executeAlgoritmoGeneticoAleatorio(HttpServletRequest request, PrintWriter out) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        noCromosomas = Integer.parseInt(request.getParameter("txtNoCromosomas"));
+        min = Integer.parseInt(request.getParameter("txtMin"));
+        max = Integer.parseInt(request.getParameter("txtMax"));
+        generaciones = 
+            dao.executeAG(numeroGeneraciones, longitudCromosoma, noCromosomas, min, max,
+                        seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
+                        cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
+                        mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma);
+        System.out.println(generaciones);
+        out.print( generaciones.toString() );
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

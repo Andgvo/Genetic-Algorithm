@@ -48,7 +48,6 @@ public class RandomC {
             }
             cadenaBinaria.add(valor);
         }
-        System.out.println(cadenaBinaria);
         return cadenaBinaria;
     }
     

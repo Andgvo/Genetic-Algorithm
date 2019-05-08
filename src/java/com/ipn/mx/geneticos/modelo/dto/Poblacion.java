@@ -1,6 +1,7 @@
 package com.ipn.mx.geneticos.modelo.dto;
 
 import com.ipn.mx.geneticos.utilerias.Funcion;
+import com.ipn.mx.geneticos.utilerias.RandomC;
 import com.ipn.mx.geneticos.utilerias.Rango;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +17,7 @@ import java.util.Random;
  * @param <T extends Cromosoma>
  */
 public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
+    private static final RandomC randomC = new RandomC();
     private final Class<T> type;
     private Rango rango;
     protected BigDecimal numeroIndividuos; //tamaño de la población
@@ -26,7 +28,7 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     protected T cromosomaMin;
     protected T cromosomaMax;
     
-    //Tambien se usa en quicksort :'v
+    //Tambien se usa en quicksort
     public Poblacion(Class<T> type) {
         numeroIndividuos = new BigDecimal(0);
         sumatoriaAptitud = new BigDecimal(0);
@@ -61,18 +63,37 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
     }
     
     /**
-     * @param numElementos numero de elementos de la poblacion
+     * @param noCromosomas numero de elementos de la poblacion
      * @return Poblacion 
     **/
-    public static Poblacion getAleatoria(int numElementos) {
+    public static Poblacion getAleatoria(int noCromosomas) {
         Poblacion resultado = new Poblacion(Cromosoma.class);
         Cromosoma individuo;
-        for (int i = 0; i < numElementos; i++) {
+        for (int i = 0; i < noCromosomas; i++) {
             individuo = new Cromosoma(
                     new BigDecimal(new Random().nextInt(10))
             );
             resultado.add(individuo);
         }
+        return resultado;
+    }
+    
+    /**
+     * @param noCromosomas numero de elementos de la poblacion
+     * @return Poblacion 
+    **/
+    public static Poblacion getAleatoria(int noCromosomas, int longitud, int min, int max, Class type) {
+        Poblacion resultado = new Poblacion(type);
+        Cromosoma individuo;
+        for (int i = 0; i < noCromosomas; i++) {
+            individuo = new Cromosoma( randomC.generarCadenaBinaria(longitud) );
+            if( individuo.getValorReal().intValue() >= min &&  individuo.getValorReal().intValue() <= max){
+                resultado.add(individuo);
+            }else{
+                i--;
+            }
+        }
+        System.out.println(resultado.imprimirPoblacion());
         return resultado;
     }
     

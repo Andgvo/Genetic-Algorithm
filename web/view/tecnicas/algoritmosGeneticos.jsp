@@ -64,15 +64,15 @@
                                     <div v-if="tipoPoblacionIni === 'ALEATORIO'" class="row">
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Número de cromosomas:</label>
-                                            <input type="number" class="form-control form-control-sm" id="txtNumeroPoblacion" name="txtNumeroPoblacion"  value="10" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtNumeroPoblacion" name="txtNoCromosomas"  value="6" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Valor mínimo del Random:</label>
-                                            <input type="number" class="form-control form-control-sm" id="txtValorInicio" name="txtValorInicio"  value="1" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtValorInicio" name="txtMin"  value="1" placeholder="10">
                                         </div>
                                         <div class="form-group col-6 col-sm-4 col-md-4 col-lg-4">
                                             <label for="txtNumeroPoblacion">Valor máximo del Random:</label>
-                                            <input type="number" class="form-control form-control-sm" id="txtValorFinal" name="txtValorFinal"  value="10" placeholder="10">
+                                            <input type="number" class="form-control form-control-sm" id="txtValorFinal" name="txtMax"  value="31" placeholder="10">
                                         </div>
                                     </div>
                                     <!-- CONFIGURACION PARA ALEATORIO -->
@@ -325,7 +325,7 @@
             var app = new Vue({
                 el: '#app',
                 data: {
-                    tipoPoblacionIni: 'BLOQUE',
+                    tipoPoblacionIni: 'ALEATORIO',
                     tipoBloque: 'BINARIO',
                     ruleta: {
                         f: 0,
@@ -385,6 +385,7 @@
                     url: 'AlgoritmosGeneticosServlet',
                     data: $("#formMetodo").serializeArray(),
                     success: function (responseText) {
+                        console.log(responseText);
                         app.$data.generaciones = JSON.parse(responseText);
                         updateGraph(app.$data.generaciones);
                     }

@@ -36,16 +36,18 @@ public class MetodoDAO<T extends Cromosoma> {
     }
     
     public List<Poblacion<Cromosoma>> executeAG(
-            int numeroGeneraciones, int longitudCromosoma, int noPoblacion,
+            int numeroGeneraciones, int longitudCromosoma, int noCromosomas, int min, int max,
             String seleccion, String porcentajeSeleccionPoblacion, String porcentajeSeleccionCromosoma,
             String cruza, int puntosCruza, String porcentajeCruzaPoblacion, String porcentajeCruzaCromosoma,
             String mutacion, int numElementosMutacion, String porcentajeMutacionPoblacion, String porcentajeMutacionCromosoma) {
+        System.out.println("\t============> 2");
         metodo = new Metodo(
-            numeroGeneraciones, longitudCromosoma, bloque, funcion,
+            numeroGeneraciones, longitudCromosoma, noCromosomas, min, max, funcion,
                 seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma,
                 cruza, puntosCruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma,
                 mutacion, numElementosMutacion, porcentajeMutacionPoblacion, porcentajeMutacionCromosoma,
                 tipoIndividuo);
+        System.out.println("===============> 4");
         return metodo.executeGenetico();
     }
     

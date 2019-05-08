@@ -46,6 +46,11 @@ public class Pruebas {
         int aux = lista.remove(3);
         lista.add(1,aux);
         System.out.println(lista);
+        System.out.println("----------------------------------------------");
+        Poblacion p2 = Poblacion.getAleatoria(6, 5, 0, 20, Cromosoma.class);
+        System.out.println("**********************************************__");
+        System.out.println(p2.size());
+        System.out.println(p2.imprimirPoblacion());   
     }
 }
 
