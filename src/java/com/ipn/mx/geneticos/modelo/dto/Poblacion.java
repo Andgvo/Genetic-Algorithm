@@ -82,6 +82,24 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
      * @param noCromosomas numero de elementos de la poblacion
      * @return Poblacion 
     **/
+    public static Poblacion<CromosomaExtended> getAleatoriaExtendida(int noCromosomas,int longitud, int min, int max){
+        Poblacion<CromosomaExtended> resultado = new Poblacion(CromosomaExtended.class);
+        CromosomaExtended individuo;
+        for (int i = 0; i < noCromosomas; i++) {
+            individuo = new CromosomaExtended( randomC.generarCadenaBinaria(longitud) );
+            if( individuo.getValorReal().intValue() >= min &&  individuo.getValorReal().intValue() <= max){
+                resultado.add(individuo);
+            }else{
+                i--;
+            }
+        }
+        return resultado;
+    }
+    
+    /**
+     * @param noCromosomas numero de elementos de la poblacion
+     * @return Poblacion 
+    **/
     public static Poblacion getAleatoria(int noCromosomas, int longitud, int min, int max, Class type) {
         Poblacion resultado = new Poblacion(type);
         Cromosoma individuo;
@@ -93,7 +111,6 @@ public class Poblacion<T extends Cromosoma> extends ArrayList<T> {
                 i--;
             }
         }
-        System.out.println(resultado.imprimirPoblacion());
         return resultado;
     }
     

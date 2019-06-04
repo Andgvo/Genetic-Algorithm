@@ -18,6 +18,12 @@ public class CromosomaExtended extends Cromosoma{
         cadenaGray = parseByte( valorGray.intValue() );
     }
     
+    public CromosomaExtended(List<Byte> cadenaBinaria) {
+        super(cadenaBinaria);
+        valorGray = new BigDecimal(parseGray());
+        cadenaGray = parseByte( valorGray.intValue() );
+    }
+    
     public static int parseGray(BigDecimal valorDecimal){
         int original = valorDecimal.intValue();
         int corrimiento = valorDecimal.intValue()>>1;

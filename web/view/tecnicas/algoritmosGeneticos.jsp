@@ -125,7 +125,7 @@
                                             <select class="form-control form-control-sm" id="selCruza" name="selCruza">
                                                 <option value="N_PUNTOS" selected>N Puntos</option>
                                                 <option value="UNIFORME">Uniforme</option>
-                                                <option value="JERARQUICO">Heurística</option>
+                                                <option value="UNIFORME">Heurística</option>
                                             </select>                                           
                                         </div>
                                         <div class="col-12 col-sm-2 col-md-2 col-lg-2">

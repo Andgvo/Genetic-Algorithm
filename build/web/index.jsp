@@ -61,8 +61,8 @@
                     <div class="card card-hover border-info mb-3" style="max-width: 20rem;">
                         <div class="card-header"> </div>
                         <div class="card-body">
-                          <h4 class="card-title">Algoritmos Geneticos</h4>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <h4 class="card-title">Algoritmos Genéticos</h4>
+                          <p class="card-text">Aplicar un Algoritmo Genético sobre una población: Selección, Cruza y Mutación.</p>
                           <a href="algoritmosGeneticos" class="btn btn-lg btn-outline-info btn-block">Revisar</a>
                         </div>
                     </div>

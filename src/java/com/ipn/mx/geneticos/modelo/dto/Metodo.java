@@ -57,9 +57,7 @@ public class Metodo<T extends Cromosoma> {
         this.metodoSeleccion = MetodoFactory.getSeleccion(seleccion, porcentajeSeleccionPoblacion, porcentajeSeleccionCromosoma, tipoIndividuo);
         this.cruza = MetodoFactory.getCruza(cruza, porcentajeCruzaPoblacion, porcentajeCruzaCromosoma, puntosCruza, tipoIndividuo);
         this.tipoMutacion = MetodoFactory.getMutacion(mutacion, numElementosMutacion,porcentajeMutacionPoblacion ,porcentajeMutacionCromosoma, tipoIndividuo);
-        System.out.println("Aleatorio == >");
         this.padres = Poblacion.getAleatoria(noCromosomas, longitudCromosoma, min, max, tipoIndividuo);
-        System.out.println("=========== > 3 ");
         generaciones = new ArrayList<>();
     }
 
@@ -119,7 +117,7 @@ public class Metodo<T extends Cromosoma> {
         String seleccion = "RULETA";
         String porcentajeSeleccionPoblacion = "100";
         String porcentajeSeleccionCromosoma = "10";
-        String cruza = "N_PUNTOS";
+        String cruza = "UNIFORME";
         int puntosCruza = 2;
         String porcentajeCruzaPoblacion = "100";
         String porcentajeCruzaCromosoma = "3";

@@ -9,7 +9,7 @@
 <footer class="col-12 footer font-small blue">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
-        © 2018 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/"> ESCOM </a>
+        © 2018 Autor: López Sánchez Gustavo Andrés <a href="http://www.escom.ipn.mx/"> ESCOM </a>
     </div>
 </footer>
 

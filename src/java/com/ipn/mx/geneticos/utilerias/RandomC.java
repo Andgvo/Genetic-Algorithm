@@ -14,7 +14,14 @@ import java.util.stream.IntStream;
  * @author andres
  */
 public class RandomC {
-    
+     
+    /**
+     * Funcion para obtener puntos random de un conjunto de numeros
+     * @param inicio indica el valor minimo o de inicio del random
+     * @param longitud indica el valor máximo o fin del random
+     * @param puntos numero de elementos que se desean del random
+     * @return retorna los puntos ranmdom en orden
+     */
     public List cortesRandom(int inicio, int longitud,int puntos){
         List<Integer> numeros = IntStream.range(inicio, longitud).mapToObj(Integer::valueOf)
             .collect(Collectors.toList());
@@ -22,6 +29,13 @@ public class RandomC {
         return Quicksort.quicksortInt(numeros.subList(0, puntos));
     }
     
+    /**
+     * Funcion para obtener puntos random de un conjunto de numeros
+     * @param inicio indica el valor minimo o de inicio del random
+     * @param longitud indica el valor máximo o fin del random
+     * @param puntos numero de elementos que se desean del random
+     * @return retorna los puntos ranmdom en desorden
+     */
     public List cortesRandomDesorden(int inicio, int longitud,int puntos){
         List<Integer> numeros = IntStream.range(inicio, longitud).mapToObj(Integer::valueOf)
             .collect(Collectors.toList());
@@ -36,6 +50,12 @@ public class RandomC {
         return numeros.subList(0, puntos);
     }
     
+    /**
+     * Genera cadenas binarias de una longitud 'n', donde el valor de cada
+     * cada alelo 'ni' tiene una probabilidad del 50% de ser 0 o 1
+     * @param longitud
+     * @return 
+     */
     public List<Byte> generarCadenaBinaria( int longitud ){
         Random random = new Random();
         List<Byte> cadenaBinaria = new ArrayList<>(longitud);
@@ -49,19 +69,5 @@ public class RandomC {
             cadenaBinaria.add(valor);
         }
         return cadenaBinaria;
-    }
-    
-    public static void main(String[] args) {
-        RandomC random = new RandomC();
-        List<Integer> r = new ArrayList<>();
-        r.add(1);
-        r.add(2);
-        r.add(3);
-        r.add(4);
-        r.add(5);
-        List l = random.desordenar(0, r.size(), r.size());
-        System.out.println(l);
-        System.out.println("---------_>");
-        random.generarCadenaBinaria(5);
     }
 }

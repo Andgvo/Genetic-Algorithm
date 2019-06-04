@@ -27,36 +27,39 @@ public class Uniforme <T extends Cromosoma> extends ParseCromosoma<T> implements
     @Override
     public void cruzar(Poblacion<T> descendientes, T cromosoma1, T cromosoma2) {
         if(Cromosoma.longitud > puntos){
+            
             //Forzamos a que el random genere numeros excluyendo inicio y final
-            List<Integer> mascara = RANDOM.cortesRandomDesorden(0, Cromosoma.longitud, puntos);
-            System.out.println("mascara = "+ mascara);
-            cadenaHijo1 = new ArrayList<>();
-            cadenaHijo2 = new ArrayList<>();
-            int tam = mascara.size()-1;
-            byte cambio = 0;
-            for(int i= 0; i < tam; i++){
-                if(cambio == 0){
-                    cadenaHijo1.addAll( cromosoma1.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
-                    cadenaHijo2.addAll( cromosoma2.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
-                    cambio = 1;
-                }else{
-                    cadenaHijo1.addAll( cromosoma2.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
-                    cadenaHijo2.addAll( cromosoma1.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
-                    cambio = 0;
-                }
-            }
-            descendientes.add( instanciaDeCromosoma( cadenaHijo1 ) );
-            descendientes.add( instanciaDeCromosoma( cadenaHijo2 ) );
+//            List<Integer> mascara = RANDOM.cortesRandomDesorden(0, Cromosoma.longitud, puntos);
+//            System.out.println("mascara = "+ mascara);
+//            cadenaHijo1 = new ArrayList<>();
+//            cadenaHijo2 = new ArrayList<>();
+//            int tam = mascara.size()-1;
+//            byte cambio = 0;
+//            for(int i= 0; i < tam; i++){
+//                if(cambio == 0){
+//                    cadenaHijo1.addAll( cromosoma1.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
+//                    cadenaHijo2.addAll( cromosoma2.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
+//                    cambio = 1;
+//                }else{
+//                    cadenaHijo1.addAll( cromosoma2.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
+//                    cadenaHijo2.addAll( cromosoma1.getCadenaBinaria(mascara.get(i), mascara.get(i+1)) );
+//                    cambio = 0;
+//                }
+//            }
+//            descendientes.add( instanciaDeCromosoma( cadenaHijo1 ) );
+//            descendientes.add( instanciaDeCromosoma( cadenaHijo2 ) );
         }
     }
     
     @Override
     public Poblacion<T> cruzarPoblacion(Poblacion<T> poblacion) {
-        Poblacion<T> descendientes = new Poblacion<>(type);
-        for (int i = 0; i < poblacion.size(); i += 2) {
-            cruzar(descendientes, poblacion.get(i), poblacion.get(i + 1));
-        }
-        return descendientes;
+//        Poblacion<T> descendientes = new Poblacion<>(type);
+//        for (int i = 0; i < poblacion.size(); i += 2) {
+//            cruzar(descendientes, poblacion.get(i), poblacion.get(i + 1));
+//        }
+        NPuntos nPuntos = new NPuntos(puntos, type);
+        return nPuntos.cruzarPoblacion(poblacion);
+        //return descendientes;
     }
 
     @Override

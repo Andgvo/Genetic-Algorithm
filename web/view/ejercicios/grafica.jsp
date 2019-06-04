@@ -30,20 +30,27 @@
                             <div class="col-12">
                                 <p>Ingrese aquí el número de cromosomas aleatorias que tendra la población.</p>
                             </div>
-                            <div class="col-12 form-inline">
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <label for="txtNumeroPoblacion">Número de cromosomas</label>
-                                </div>
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <input type="number" class="form-control" id="txtNumeroPoblacion" name="txtNumeroPoblacion" aria-describedby="emailHelp" value="10" placeholder="10">
-                                    
-                                </div>
-                                <div class="form-group mb-2">
-                                    <button id="btnGetAleatorios" class="btn btn-success" > Generar aleatorio </button>
-                                </div>
-                                <div class="form-group mb-2 ml-auto">
-                                    <button id="btnQuicksort" class="btn btn-success" > Quicksort </button>
-                                </div>
+                            <div class="col-3 form-group">
+                                <label for="txtNumeroPoblacion">Número de cromosomas: </label>
+                                <input type="number" class="form-control" id="txtNumeroPoblacion" name="txtNumeroPoblacion" aria-describedby="emailHelp" value="60" placeholder="10">
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="txtNumeroPoblacion">Longitud de cromosoma: </label>
+                                <input type="number" class="form-control" id="txtLongitud" name="txtLongitud" aria-describedby="emailHelp" value="5" placeholder="10">
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="txtNumeroPoblacion">Número de mínimo: </label>
+                                <input type="number" class="form-control" id="txtMin" name="txtMin" aria-describedby="emailHelp" value="1" placeholder="10">
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="txtNumeroPoblacion">Número de máximo: </label>
+                                <input type="number" class="form-control" id="txtMax" name="txtMax" aria-describedby="emailHelp" value="31" placeholder="10">
+                            </div>
+                            <div class="col-4">
+                                <button id="btnGetAleatorios" class="btn btn-success" > Generar aleatorio </button>
+                            </div>
+                            <div class="col-4">
+                                <button id="btnQuicksort" class="btn btn-success" > Quicksort </button>
                             </div>
                         </div>
                         <div class="row">
@@ -87,20 +94,30 @@
             });
 
             function getCromosomas() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'CromosomaServlet',
-                    data: {
-                        txtAccion: 'getPoblacionAleatoria',
-                        txtNumeroPoblacion: $("#txtNumeroPoblacion").val()
-                    },
-                    success: function (responseText) {
-                        app.$data.cromosomas = JSON.parse(responseText);
-                        window.myPieChart.config.data.datasets[0].data = getValueCromosomas(app.$data.cromosomas);
-                        window.myPieChart.config.data.labels = window.myPieChart.config.data.datasets[0].data;
-                        window.myPieChart.update();
-                    }
-                });
+                var min = $("#txtMin").val();
+                var max = $("#txtMax").val();
+                if( min <= max ){
+                    $.ajax({
+                        type: 'GET',
+                        url: 'CromosomaServlet',
+                        data: {
+                            txtAccion: 'getPoblacionAleatoria',
+                            txtNumeroPoblacion: $("#txtNumeroPoblacion").val(),
+                            txtLongitud: $("#txtLongitud").val(),
+                            txtMin: $("#txtMin").val(),
+                            txtMax: $("#txtMax").val()
+                        },
+                        success: function (responseText) {
+                            app.$data.cromosomas = JSON.parse(responseText);
+                            window.myPieChart.config.data.datasets[0].data = getValueCromosomas(app.$data.cromosomas);
+                            window.myPieChart.config.data.datasets[1].data = getValueCromosomas(app.$data.cromosomas);
+                            window.myPieChart.config.data.labels = window.myPieChart.config.data.datasets[0].data;
+                            window.myPieChart.update();
+                        }
+                    });
+                }else{
+                    alert("El valor mínimo supera al máximo");
+                }
             }
 
             function getQuicksort() {
@@ -114,6 +131,7 @@
                         app.$data.cromosomasOrdenados = JSON.parse(responseText);
                         console.log(app.$data.cromosomasOrdenados);
                         window.myPieChart.config.data.datasets[0].data = getValueCromosomas(app.$data.cromosomasOrdenados);
+                        //window.myPieChart.config.data.datasets[1].data = getValueCromosomas(app.$data.cromosomasOrdenados);
                         window.myPieChart.config.data.labels = window.myPieChart.config.data.datasets[0].data;
                         window.myPieChart.update();
                     }
@@ -138,6 +156,12 @@
                             label: 'Datos Random',
                             backgroundColor: '#F39C12',
                             borderColor: '#F39C12',
+                            fill: false,
+                            data: []
+                        }, {
+                            label: 'Original',
+                            backgroundColor: '#AED6F1',
+                            borderColor: '#AED6F1',
                             fill: false,
                             data: []
                         }],

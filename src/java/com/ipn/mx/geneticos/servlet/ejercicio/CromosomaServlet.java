@@ -20,6 +20,11 @@ public class CromosomaServlet extends HttpServlet {
     private final CromosomaDAO dao = new CromosomaDAO();
     private final Gson gson = new GsonBuilder().create();
     private Poblacion lista;
+    private int num;
+    private int longitud;
+    private int min;
+    private int max;
+    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,6 +47,8 @@ public class CromosomaServlet extends HttpServlet {
                 case "getQuicksort":
                     getQuicksort(request, out);
                     break;
+                case "getPoblacionExendida":
+                    getPoblacionExendida(request, out);
                 default:
                     break;
             }
@@ -88,11 +95,24 @@ public class CromosomaServlet extends HttpServlet {
     }// </editor-fold>
 
     private void getPoblacionAleatoria(HttpServletRequest request, PrintWriter out) {
-        int num = Integer.parseInt( request.getParameter("txtNumeroPoblacion") );
-        lista = dao.getPoblacionAleaotria(num);
+        num = Integer.parseInt( request.getParameter("txtNumeroPoblacion") );
+        longitud = Integer.parseInt(request.getParameter("txtLongitud"));
+        min = Integer.parseInt(request.getParameter("txtMin"));
+        max = Integer.parseInt(request.getParameter("txtMax"));
+        lista = dao.getPoblacionAleaotria(num, longitud, min, max);
+        out.println( gson.toJson( lista ) );
+    }
+    
+    private void getPoblacionExendida(HttpServletRequest request, PrintWriter out) {
+        num = Integer.parseInt( request.getParameter("txtNumeroPoblacion") );
+        longitud = Integer.parseInt(request.getParameter("txtLongitud"));
+        min = Integer.parseInt(request.getParameter("txtMin"));
+        max = Integer.parseInt(request.getParameter("txtMax"));
+        lista = dao.getPoblacionExtendida(num, longitud, min, max);
         System.out.println("listaReal: "+lista);
         out.println( gson.toJson( lista ) );
     }
+    
     
     private void getQuicksort(HttpServletRequest request, PrintWriter out) throws IOException {
         lista = dao.quicksort(lista);
